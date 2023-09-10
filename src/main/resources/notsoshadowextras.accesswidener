@@ -1,0 +1,7 @@
+accessWidener v2 named
+accessible class net/minecraft/server/world/ChunkTicketManager$TicketDistanceLevelPropagator
+accessible method net/minecraft/world/ChunkSerializer createCodec (Lnet/minecraft/registry/Registry;)Lcom/mojang/serialization/Codec;
+accessible method net/minecraft/world/ChunkSerializer logRecoverableError (Lnet/minecraft/util/math/ChunkPos;ILjava/lang/String;)V
+accessible method net/minecraft/world/ChunkSerializer getEntityLoadingCallback (Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/nbt/NbtCompound;)Lnet/minecraft/world/chunk/WorldChunk$EntityLoader;
+accessible method net/minecraft/world/ChunkSerializer readStructureStarts (Lnet/minecraft/structure/StructureContext;Lnet/minecraft/nbt/NbtCompound;J)Ljava/util/Map;
+accessible method net/minecraft/world/ChunkSerializer readStructureReferences (Lnet/minecraft/registry/DynamicRegistryManager;Lnet/minecraft/util/math/ChunkPos;Lnet/minecraft/nbt/NbtCompound;)Ljava/util/Map;

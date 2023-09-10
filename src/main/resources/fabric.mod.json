@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "id": "notsoshadowextras",
+  "version": "${version}",
+
+  "name": "Not So Shadow Extras",
+  "description": "Addon to AntiShadowPatch that adds extra features that weren't in the game",
+  "authors": [
+    "ForwarD NerN"
+  ],
+  "contact": {
+    "sources": "https://github.com/ForwarD-NerN/NotSoShadowExtras"
+  },
+
+  "license": "CC0-1.0",
+  "icon": "assets/notsoshadowextras/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "ru.nern.notsoshadowextras.NotSoShadowExtras"
+    ]
+  },
+  "mixins": [
+    "notsoshadowextras.mixins.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.14.6",
+    "minecraft": ">=1.20",
+    "java": ">=17"
+  },
+  "suggests": {
+    "another-mod": "*"
+  },
+  "accessWidener": "notsoshadowextras.accesswidener"
+}
