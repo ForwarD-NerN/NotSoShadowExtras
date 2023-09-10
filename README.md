@@ -8,7 +8,7 @@ Addon to [AntiShadowPatch](https://modrinth.com/mod/antishadowpatch) that adds e
 ## The list of features
 * Update Suppression Crash Fix **(SO & CCE)**
 * Disable DataFixer Light Recalculation
-* * With the changes Mojang made to the lightning engine, they added a datafixer that, when activated, forces Minecraft to recalculate light in every single chunk. Which breaks EOL farms.
+* * With the changes Mojang made to the lightning engine, they added a datafixer that, when activated, forces Minecraft to recalculate light in every single chunk, which breaks EOL farms. This setting just removes the datafixer.
 
 
 You can configure every setting individually notsoshadowextras_config.json
