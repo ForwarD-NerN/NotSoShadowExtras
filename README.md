@@ -1,9 +1,14 @@
-# Fabric Example Mod
+# NotSoShadowExtras
 
-## Setup
+## Info
 
-For setup instructions please see the [fabric wiki page](https://fabricmc.net/wiki/tutorial:setup) that relates to the IDE that you are using.
+Addon to [AntiShadowPatch](https://modrinth.com/mod/antishadowpatch) that adds extra(non-vanilla) features that won't be included in AntiShadowPatch.
 
-## License
 
-This template is available under the CC0 license. Feel free to learn from it and incorporate it in your own projects.
+## The list of features
+* Update Suppression Crash Fix **(SO & CCE)**
+* Disable DataFixer Light Recalculation
+* * With the changes Mojang made to the lightning engine, they added a datafixer that, when activated, forces Minecraft to recalculate light in every single chunk. Which breaks EOL farms.
+
+
+You can configure every setting individually notsoshadowextras_config.json
