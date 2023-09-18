@@ -56,7 +56,7 @@ public class ConfigurationManager
             saveConfig();
         }else{
             loadConfig();
-            if(!Objects.equals(config.lastLoadedVersion, CONFIG_VERSION)) saveConfig();
+            if(!config.lastLoadedVersion.equals(CONFIG_VERSION)) saveConfig();
         }
     }
 
@@ -76,6 +76,7 @@ public class ConfigurationManager
 
         public static class Blocks{
             public boolean updateSuppressionCrashFix = true;
+            public boolean updateSuppressionDupeFix = false;
             public boolean alertAboutUpdateSuppressionCrash = false;
         }
 
