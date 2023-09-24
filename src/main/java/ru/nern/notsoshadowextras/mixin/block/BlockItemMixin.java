@@ -1,4 +1,4 @@
-package ru.nern.notsoshadowextras.mixin;
+package ru.nern.notsoshadowextras.mixin.block;
 
 import com.llamalad7.mixinextras.injector.WrapWithCondition;
 import net.minecraft.block.BlockState;
@@ -30,6 +30,6 @@ public abstract class BlockItemMixin {
 
     @Inject(method = "place(Lnet/minecraft/item/ItemPlacementContext;)Lnet/minecraft/util/ActionResult;", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/BlockItem;place(Lnet/minecraft/item/ItemPlacementContext;Lnet/minecraft/block/BlockState;)Z"))
     private void notsoshadowextras_moveBeforeBlockPlacement(ItemPlacementContext context, CallbackInfoReturnable<ActionResult> cir) {
-        if(NotSoShadowExtras.config.blocks.updateSuppressionDupeFix && context.getPlayer() != null && !context.getPlayer().getAbilities().creativeMode) context.getPlayer().getStackInHand(context.getHand()).decrement(1);
+        if(NotSoShadowExtras.config.blocks.updateSuppressionDupeFix && (context.getPlayer() == null || !context.getPlayer().getAbilities().creativeMode)) context.getStack().decrement(1);
     }
 }

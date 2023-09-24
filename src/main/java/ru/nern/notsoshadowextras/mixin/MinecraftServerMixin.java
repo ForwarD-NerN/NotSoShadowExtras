@@ -21,17 +21,16 @@ public class MinecraftServerMixin {
             method = "tickWorlds",
             at = @At(value = "INVOKE", target = "Lnet/minecraft/server/world/ServerWorld;tick(Ljava/util/function/BooleanSupplier;)V")
     )
-    private void notsoshadowextras_updateSuppressionCrashFix(ServerWorld instance, BooleanSupplier shouldKeepTicking, Operation<Void> original) {
+    private void notsoshadowextras_updateSuppressionCrashFix(ServerWorld world, BooleanSupplier shouldKeepTicking, Operation<Void> original) {
         if (NotSoShadowExtras.config.blocks.updateSuppressionCrashFix) {
             try{
-                original.call(instance, shouldKeepTicking);
-            }catch (CrashException exception)
+                original.call(world, shouldKeepTicking);
+            }catch (ClassCastException | StackOverflowError error)
             {
-                if(!(exception.getCause() instanceof ClassCastException || exception.getCause() instanceof StackOverflowError)) throw exception;
-                if(NotSoShadowExtras.config.blocks.alertAboutUpdateSuppressionCrash) alertDimensionAboutCrash(instance);
+                if(NotSoShadowExtras.config.blocks.alertAboutUpdateSuppressionCrash) alertDimensionAboutCrash(world);
             }
         } else {
-            original.call(instance, shouldKeepTicking);
+            original.call(world, shouldKeepTicking);
         }
     }
     private void alertDimensionAboutCrash(ServerWorld world)

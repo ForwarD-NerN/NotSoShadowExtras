@@ -9,7 +9,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.util.Objects;
 import java.util.stream.Stream;
 
 import static ru.nern.notsoshadowextras.NotSoShadowExtras.config;

@@ -1,4 +1,4 @@
-package ru.nern.notsoshadowextras.mixin;
+package ru.nern.notsoshadowextras.mixin.entity;
 
 import com.llamalad7.mixinextras.injector.WrapWithCondition;
 import net.minecraft.entity.decoration.ItemFrameEntity;

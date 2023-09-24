@@ -4,10 +4,15 @@
   "package": "ru.nern.notsoshadowextras.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "BlockItemMixin",
     "DataFixerBuilderMixin",
-    "ItemFrameEntityMixin",
-    "MinecraftServerMixin"
+    "MinecraftServerMixin",
+    "block.BlockItemMixin",
+    "block.DispenserBehaviorMixin$CarvedPumpkinPlacementBehavior",
+    "block.DispenserBehaviorMixin$CopperWaxBehavior",
+    "block.DispenserBehaviorMixin$FlintAndSteelBehavior",
+    "block.DispenserBehaviorMixin$RespawnAnchorChargeBehavior",
+    "block.DispenserBehaviorMixin$WitherSkullPlacementBehavior",
+    "entity.ItemFrameEntityMixin"
   ],
   "injectors": {
     "defaultRequire": 1

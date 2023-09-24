@@ -6,10 +6,10 @@ Addon to [AntiShadowPatch](https://modrinth.com/mod/antishadowpatch) that adds e
 
 
 ## The list of features
-* Update Suppression Crash Fix **(SO & CCE)**
-* Update Suppression Dupe Fix
-* * Fixes the item frame and the block dupe. Item shadowing dupes aren't affected.
-* Disable DataFixer Light Recalculation
+* **Update Suppression Crash Fix** **(SO & CCE)**
+* **Update Suppression Dupe Fix**
+* * Fixes all known dupes related to update suppression(except item shadowing ones).
+* **Disable DataFixer Light Recalculation**
 * * With the changes Mojang made to the lightning engine, they added a datafixer that, when activated, forces Minecraft to recalculate light in every single chunk, which breaks EOL farms. This setting just removes the datafixer.
 
 
