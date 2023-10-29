@@ -76,6 +76,7 @@ public class ConfigurationManager
         public static class Blocks{
             public boolean updateSuppressionCrashFix = true;
             public boolean updateSuppressionDupeFix = false;
+            public boolean updateSuppressionItemDamageFix = false;
             public boolean alertAboutUpdateSuppressionCrash = false;
         }
 

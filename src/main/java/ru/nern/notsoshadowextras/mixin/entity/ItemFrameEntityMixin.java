@@ -19,12 +19,12 @@ public class ItemFrameEntityMixin {
             method = "interact(Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/util/Hand;)Lnet/minecraft/util/ActionResult;",
             at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;decrement(I)V")
     )
-    private boolean notsoshadowextras_wrapDecrementWithCondition(ItemStack stack, int amount) {
+    private boolean notsoshadowextra$wrapDecrementWithCondition(ItemStack stack, int amount) {
         return !NotSoShadowExtras.config.blocks.updateSuppressionDupeFix;
     }
 
     @Inject(method = "interact", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/decoration/ItemFrameEntity;setHeldItemStack(Lnet/minecraft/item/ItemStack;)V"))
-    private void notsoshadowextras_moveBeforeBlockUpdate(PlayerEntity player, Hand hand, CallbackInfoReturnable<ActionResult> cir) {
+    private void notsoshadowextra$moveBeforeBlockUpdate(PlayerEntity player, Hand hand, CallbackInfoReturnable<ActionResult> cir) {
         if(NotSoShadowExtras.config.blocks.updateSuppressionDupeFix && !player.getAbilities().creativeMode) player.getStackInHand(hand).decrement(1);
     }
 }

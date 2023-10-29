@@ -21,7 +21,7 @@ public class MinecraftServerMixin {
             method = "tickWorlds",
             at = @At(value = "INVOKE", target = "Lnet/minecraft/server/world/ServerWorld;tick(Ljava/util/function/BooleanSupplier;)V")
     )
-    private void notsoshadowextras_updateSuppressionCrashFix(ServerWorld world, BooleanSupplier shouldKeepTicking, Operation<Void> original) {
+    private void notsoshadowextra$updateSuppressionCrashFix(ServerWorld world, BooleanSupplier shouldKeepTicking, Operation<Void> original) {
         if (NotSoShadowExtras.config.blocks.updateSuppressionCrashFix) {
             try{
                 original.call(world, shouldKeepTicking);

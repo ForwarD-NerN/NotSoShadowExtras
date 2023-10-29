@@ -6,12 +6,15 @@
   "mixins": [
     "DataFixerBuilderMixin",
     "MinecraftServerMixin",
-    "block.BlockItemMixin",
-    "block.DispenserBehaviorMixin$CarvedPumpkinPlacementBehavior",
-    "block.DispenserBehaviorMixin$CopperWaxBehavior",
-    "block.DispenserBehaviorMixin$FlintAndSteelBehavior",
-    "block.DispenserBehaviorMixin$RespawnAnchorChargeBehavior",
-    "block.DispenserBehaviorMixin$WitherSkullPlacementBehavior",
+    "dupe_fix.BlockItemMixin",
+    "dupe_fix.ComposterBlockMixin",
+    "dupe_fix.FlowerPotBlockMixin",
+    "dupe_fix.MusicDiscItemMixin",
+    "dupe_fix.damage.AxeItemMixin",
+    "dupe_fix.damage.FlintAndSteelItemMixin",
+    "dupe_fix.damage.PumpkinBlockMixin",
+    "dupe_fix.damage.ShearsItemMixin",
+    "dupe_fix.damage.TntBlockMixin",
     "entity.ItemFrameEntityMixin"
   ],
   "injectors": {
