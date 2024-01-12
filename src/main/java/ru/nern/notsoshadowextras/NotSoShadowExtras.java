@@ -61,7 +61,7 @@ public class NotSoShadowExtras implements ModInitializer {
 		stack.setSubNbt("Enchantments", list);
 
 		NbtList lore = new NbtList();
-		lore.add(NbtString.of(Text.Serializer.toJson(Text.literal("§f+"+blockEntity).formatted(Formatting.WHITE))));
+		lore.add(NbtString.of(Text.Serialization.toJsonString(Text.literal("§f+"+blockEntity).formatted(Formatting.WHITE))));
 
 		NbtCompound display = stack.getOrCreateSubNbt("display");
 		display.put("Lore", lore);
