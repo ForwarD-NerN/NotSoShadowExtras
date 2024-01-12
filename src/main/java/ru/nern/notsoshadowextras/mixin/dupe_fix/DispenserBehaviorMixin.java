@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import ru.nern.notsoshadowextras.NotSoShadowExtras;
 
-//I'm feeling like a paper dev right now
+//I feel like a paper dev right now
 public class DispenserBehaviorMixin {
 
     //idk why, but this thing works in the dev environment, but doesn't work in the game. Maybe I'll come back to this later.
@@ -35,8 +35,8 @@ public class DispenserBehaviorMixin {
         @Inject(method = "dispenseSilently", remap = false, at = @At(value = "INVOKE",
                 target = "Lnet/minecraft/world/World;setBlockState(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;)Z"))
         private void notsoshadowextra$damageFlintAndSteel(BlockPointer pointer, ItemStack stack, CallbackInfoReturnable<ItemStack> cir) {
-            if(NotSoShadowExtras.config.blocks.updateSuppressionDupeFix
-                    && stack.damage(1, pointer.world().random, null)) stack.setCount(0);
+            ////if(NotSoShadowExtras.config.blocks.updateSuppressionDupeFix
+                //    && stack.damage(1, pointer.world().random, null)) stack.setCount(0);
         }
 
         @Inject(method = "dispenseSilently", remap = false, at = @At(value = "INVOKE",

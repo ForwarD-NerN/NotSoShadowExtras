@@ -5,7 +5,9 @@
   "compatibilityLevel": "JAVA_17",
   "mixins": [
     "DataFixerBuilderMixin",
+    "HopperBlockEntityMixin",
     "MinecraftServerMixin",
+    "NetworkThreadUtilsMixin",
     "dupe_fix.BlockItemMixin",
     "dupe_fix.ComposterBlockMixin",
     "dupe_fix.FlowerPotBlockMixin",
