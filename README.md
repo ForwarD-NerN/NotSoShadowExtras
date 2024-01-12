@@ -5,7 +5,7 @@
 Addon to [AntiShadowPatch](https://modrinth.com/mod/antishadowpatch) that adds extra(non-vanilla) features that won't be included in AntiShadowPatch.
 
 
-## The list of features
+## The list of features 
 * Update Suppression Crash Fix **(SO & CCE)**
 * Update Suppression Dupe Fix
 * * Fixes some dupes related to update suppression. Item shadowing dupes aren't affected.
