@@ -12,7 +12,7 @@
     "sources": "https://github.com/ForwarD-NerN/NotSoShadowExtras"
   },
 
-  "license": "CC0-1.0",
+  "license": "MIT",
   "icon": "assets/notsoshadowextras/icon.png",
 
   "environment": "*",
