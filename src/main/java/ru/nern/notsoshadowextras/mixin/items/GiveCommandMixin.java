@@ -28,18 +28,6 @@ public class GiveCommandMixin {
         return NotSoShadowExtras.config.items.giveCommandUnderstackedItems ? Integer.MIN_VALUE : value;
     }
 
-    private static ItemStack split(ItemStack org, int amount) {
-        //-10 / -5
-        //-15
-        //1
-
-        int i = org.getCount() > 0 ? Math.min(amount, org.getCount()) : amount;
-        System.out.println("I: " +i);
-        ItemStack itemStack = org.copyWithCount(i);
-        org.decrement(i);
-        return itemStack;
-    }
-
     @Inject(method = "execute", at = @At(value = "INVOKE", target = "Ljava/lang/Math;min(II)I", shift = At.Shift.BY, by = -5), locals = LocalCapture.CAPTURE_FAILHARD)
     private static void notsoshadowextras$giveUnderstackedItems(ServerCommandSource source, ItemStackArgument item, Collection<ServerPlayerEntity> targets, int count, CallbackInfoReturnable<Integer> cir, int i, int j, ItemStack itemStack, Iterator var7, ServerPlayerEntity serverPlayerEntity, int k) throws CommandSyntaxException {
         if(k <= 0) {
@@ -61,7 +49,6 @@ public class GiveCommandMixin {
             }
             serverPlayerEntity.getWorld().playSound(null, serverPlayerEntity.getX(), serverPlayerEntity.getY(), serverPlayerEntity.getZ(), SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.PLAYERS, 0.2f, ((serverPlayerEntity.getRandom().nextFloat() - serverPlayerEntity.getRandom().nextFloat()) * 0.7f + 1.0f) * 2.0f);
             serverPlayerEntity.currentScreenHandler.sendContentUpdates();
-            System.out.println("TRIGGERED4");
         }
     }
 }
