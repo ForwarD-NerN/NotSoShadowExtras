@@ -18,8 +18,6 @@ import ru.nern.notsoshadowextras.NotSoShadowExtras;
 
 @Mixin(ItemFrameEntity.class)
 public class ItemFrameEntityMixin {
-    @Unique
-    ItemStack savedStack;
 
     @WrapWithCondition(
             method = "interact(Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/util/Hand;)Lnet/minecraft/util/ActionResult;",
@@ -31,11 +29,11 @@ public class ItemFrameEntityMixin {
 
     @ModifyArg(method = "interact", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/decoration/ItemFrameEntity;setHeldItemStack(Lnet/minecraft/item/ItemStack;)V"), index = 0)
     private ItemStack notsoshadowextras$copyHeldStack(ItemStack stack) {
-        return stack.copy();
+        return NotSoShadowExtras.config.blocks.updateSuppressionDupeFix ? stack.copy() : stack;
     }
 
     @Inject(method = "interact", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/decoration/ItemFrameEntity;setHeldItemStack(Lnet/minecraft/item/ItemStack;)V"), locals = LocalCapture.CAPTURE_FAILHARD)
     private void notsoshadowextras$consumeItem(PlayerEntity player, Hand hand, CallbackInfoReturnable<ActionResult> cir, ItemStack itemStack) {
-        itemStack.decrementUnlessCreative(1, player);
+        if(NotSoShadowExtras.config.blocks.updateSuppressionDupeFix) itemStack.decrementUnlessCreative(1, player);
     }
 }
