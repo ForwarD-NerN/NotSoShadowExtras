@@ -3,6 +3,7 @@ package ru.nern.notsoshadowextras.mixin.dupe_fix;
 import com.llamalad7.mixinextras.injector.WrapWithCondition;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
@@ -29,19 +30,19 @@ public abstract class BlockItemMixin {
     //Save code at home:
     @WrapWithCondition(
             method = "place(Lnet/minecraft/item/ItemPlacementContext;)Lnet/minecraft/util/ActionResult;",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;decrement(I)V")
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;decrementUnlessCreative(ILnet/minecraft/entity/LivingEntity;)V")
     )
-    private boolean notsoshadowextra$wrapDecrementWithCondition(ItemStack stack, int amount, ItemPlacementContext context) {
+    private boolean notsoshadowextras$wrapDecrementWithCondition(ItemStack stack, int amount, LivingEntity entity) {
         return !NotSoShadowExtras.config.blocks.updateSuppressionDupeFix;
     }
 
     @Inject(method = "place(Lnet/minecraft/item/ItemPlacementContext;)Lnet/minecraft/util/ActionResult;", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/BlockItem;place(Lnet/minecraft/item/ItemPlacementContext;Lnet/minecraft/block/BlockState;)Z"))
-    private void notsoshadowextra$moveBeforeBlockPlacement(ItemPlacementContext context, CallbackInfoReturnable<ActionResult> cir) {
-        if(NotSoShadowExtras.config.blocks.updateSuppressionDupeFix && (context.getPlayer() == null || !context.getPlayer().getAbilities().creativeMode)) context.getStack().decrement(1);
+    private void notsoshadowextras$moveBeforeBlockPlacement(ItemPlacementContext context, CallbackInfoReturnable<ActionResult> cir) {
+        if(NotSoShadowExtras.config.blocks.updateSuppressionDupeFix) context.getStack().decrementUnlessCreative(1, context.getPlayer());
     }
 
     @Inject(method = "place(Lnet/minecraft/item/ItemPlacementContext;)Lnet/minecraft/util/ActionResult;", at = @At("RETURN"))
-    private void notsoshadowextra$swapBlockEntity(ItemPlacementContext context, CallbackInfoReturnable<ActionResult> cir) {
+    private void notsoshadowextras$swapBlockEntity(ItemPlacementContext context, CallbackInfoReturnable<ActionResult> cir) {
         ItemStack stack = context.getStack();
         if(context.getWorld().isClient || !stack.hasNbt() || !stack.getNbt().contains("StoredBlockEntity") || stack.getNbt().get("StoredBlockEntity").getNbtType() != NbtString.TYPE) return;
 

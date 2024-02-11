@@ -17,7 +17,7 @@ public class DispenserBehaviorMixin {
     public static class RespawnAnchorChargeBehavior {
         @Inject(method = "dispenseSilently", remap = false, at = @At(value = "INVOKE",
                 target = "Lnet/minecraft/block/RespawnAnchorBlock;charge(Lnet/minecraft/entity/Entity;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;)V"))
-        private void notsoshadowextra$consumeGlowstone(BlockPointer pointer, ItemStack stack, CallbackInfoReturnable<ItemStack> cir) {
+        private void notsoshadowextras$consumeGlowstone(BlockPointer pointer, ItemStack stack, CallbackInfoReturnable<ItemStack> cir) {
             if(NotSoShadowExtras.config.blocks.updateSuppressionDupeFix) stack.decrement(1);
         }
 
@@ -25,7 +25,7 @@ public class DispenserBehaviorMixin {
                 method = "dispenseSilently", remap = false,
                 at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;decrement(I)V")
         )
-        private boolean notsoshadowextra$wrapDecrementWithCondition(ItemStack stack, int amount, BlockPointer pointer) {
+        private boolean notsoshadowextras$wrapDecrementWithCondition(ItemStack stack, int amount, BlockPointer pointer) {
             return !NotSoShadowExtras.config.blocks.updateSuppressionDupeFix;
         }
     }
@@ -34,14 +34,14 @@ public class DispenserBehaviorMixin {
     public static class FlintAndSteelBehavior {
         @Inject(method = "dispenseSilently", remap = false, at = @At(value = "INVOKE",
                 target = "Lnet/minecraft/world/World;setBlockState(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;)Z"))
-        private void notsoshadowextra$damageFlintAndSteel(BlockPointer pointer, ItemStack stack, CallbackInfoReturnable<ItemStack> cir) {
+        private void notsoshadowextras$damageFlintAndSteel(BlockPointer pointer, ItemStack stack, CallbackInfoReturnable<ItemStack> cir) {
             ////if(NotSoShadowExtras.config.blocks.updateSuppressionDupeFix
                 //    && stack.damage(1, pointer.world().random, null)) stack.setCount(0);
         }
 
         @Inject(method = "dispenseSilently", remap = false, at = @At(value = "INVOKE",
                 target = "Lnet/minecraft/block/dispenser/DispenserBehavior$10;isSuccess()Z"), cancellable = true)
-        private void notsoshadowextra$cancelFlintAndSteelDamage(BlockPointer pointer, ItemStack stack, CallbackInfoReturnable<ItemStack> cir) {
+        private void notsoshadowextras$cancelFlintAndSteelDamage(BlockPointer pointer, ItemStack stack, CallbackInfoReturnable<ItemStack> cir) {
             if(NotSoShadowExtras.config.blocks.updateSuppressionDupeFix) cir.setReturnValue(stack);
         }
     }
@@ -50,7 +50,7 @@ public class DispenserBehaviorMixin {
     public static class WitherSkullPlacementBehavior {
         @Inject(method = "dispenseSilently", remap = false, at = @At(value = "INVOKE",
                 target = "Lnet/minecraft/world/World;setBlockState(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;I)Z"))
-        private void notsoshadowextra$removeWitherSkull(BlockPointer pointer, ItemStack stack, CallbackInfoReturnable<ItemStack> cir) {
+        private void notsoshadowextras$removeWitherSkull(BlockPointer pointer, ItemStack stack, CallbackInfoReturnable<ItemStack> cir) {
             if(NotSoShadowExtras.config.blocks.updateSuppressionDupeFix) stack.decrement(1);
         }
 
@@ -58,7 +58,7 @@ public class DispenserBehaviorMixin {
                 method = "dispenseSilently", remap = false,
                 at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;decrement(I)V")
         )
-        private boolean notsoshadowextra$wrapDecrementWithCondition(ItemStack stack, int amount, BlockPointer pointer) {
+        private boolean notsoshadowextras$wrapDecrementWithCondition(ItemStack stack, int amount, BlockPointer pointer) {
             return !NotSoShadowExtras.config.blocks.updateSuppressionDupeFix;
         }
     }
@@ -67,7 +67,7 @@ public class DispenserBehaviorMixin {
     public static class CarvedPumpkinPlacementBehavior {
         @Inject(method = "dispenseSilently", remap = false, at = @At(value = "INVOKE",
                 target = "Lnet/minecraft/world/World;setBlockState(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;I)Z"))
-        private void notsoshadowextra$removePumpkin(BlockPointer pointer, ItemStack stack, CallbackInfoReturnable<ItemStack> cir) {
+        private void notsoshadowextras$removePumpkin(BlockPointer pointer, ItemStack stack, CallbackInfoReturnable<ItemStack> cir) {
             if(NotSoShadowExtras.config.blocks.updateSuppressionDupeFix) stack.decrement(1);
         }
 
@@ -75,7 +75,7 @@ public class DispenserBehaviorMixin {
                 method = "dispenseSilently", remap = false,
                 at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;decrement(I)V")
         )
-        private boolean notsoshadowextra$wrapDecrementWithCondition(ItemStack stack, int amount, BlockPointer pointer) {
+        private boolean notsoshadowextras$wrapDecrementWithCondition(ItemStack stack, int amount, BlockPointer pointer) {
             return !NotSoShadowExtras.config.blocks.updateSuppressionDupeFix;
         }
     }
@@ -84,7 +84,7 @@ public class DispenserBehaviorMixin {
     public static class CopperWaxBehavior {
         @Inject(method = "dispenseSilently", remap = false, at = @At(value = "INVOKE",
                 target = "Lnet/minecraft/world/World;setBlockState(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;)Z"))
-        private void notsoshadowextra$removeHoneycomb(BlockPointer pointer, ItemStack stack, CallbackInfoReturnable<ItemStack> cir) {
+        private void notsoshadowextras$removeHoneycomb(BlockPointer pointer, ItemStack stack, CallbackInfoReturnable<ItemStack> cir) {
             if(NotSoShadowExtras.config.blocks.updateSuppressionDupeFix) stack.decrement(1);
         }
 
@@ -92,7 +92,7 @@ public class DispenserBehaviorMixin {
                 method = "dispenseSilently",
                 at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;decrement(I)V")
         )
-        private boolean notsoshadowextra$wrapDecrementWithCondition(ItemStack stack, int amount, BlockPointer pointer) {
+        private boolean notsoshadowextras$wrapDecrementWithCondition(ItemStack stack, int amount, BlockPointer pointer) {
             return !NotSoShadowExtras.config.blocks.updateSuppressionDupeFix;
         }
     }

@@ -15,7 +15,7 @@ import ru.nern.notsoshadowextras.NotSoShadowExtras;
 public class MusicDiscItemMixin {
     @Inject(method = "useOnBlock", at = @At(value = "INVOKE",
             target = "Lnet/minecraft/block/entity/JukeboxBlockEntity;setStack(Lnet/minecraft/item/ItemStack;)V"))
-    private void notsoshadowextra$consumeItem(ItemUsageContext context, CallbackInfoReturnable<ActionResult> cir) {
+    private void notsoshadowextras$consumeItem(ItemUsageContext context, CallbackInfoReturnable<ActionResult> cir) {
         if(NotSoShadowExtras.config.blocks.updateSuppressionDupeFix) context.getStack().decrement(1);
     }
 
@@ -23,7 +23,7 @@ public class MusicDiscItemMixin {
             method = "useOnBlock",
             at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;decrement(I)V")
     )
-    private boolean notsoshadowextra$wrapDecrementWithCondition(ItemStack stack, int amount) {
+    private boolean notsoshadowextras$wrapDecrementWithCondition(ItemStack stack, int amount) {
         return !NotSoShadowExtras.config.blocks.updateSuppressionDupeFix;
     }
 }

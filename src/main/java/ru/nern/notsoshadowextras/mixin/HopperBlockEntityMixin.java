@@ -15,7 +15,7 @@ public class HopperBlockEntityMixin {
             method = "transfer(Lnet/minecraft/inventory/Inventory;Lnet/minecraft/inventory/Inventory;Lnet/minecraft/item/ItemStack;ILnet/minecraft/util/math/Direction;)Lnet/minecraft/item/ItemStack;",
             at = @At(value = "INVOKE", target = "Lnet/minecraft/inventory/Inventory;markDirty()V")
     )
-    private static boolean notsoshadowextra$hopperCrashFixDupeFix(Inventory instance) {
+    private static boolean notsoshadowextras$hopperCrashFixDupeFix(Inventory instance) {
         return !NotSoShadowExtras.config.blocks.updateSuppressionHopperDupeFix;
     }
 }

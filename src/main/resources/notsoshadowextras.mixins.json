@@ -10,16 +10,18 @@
     "NetworkThreadUtilsMixin",
     "dupe_fix.BlockItemMixin",
     "dupe_fix.ComposterBlockMixin",
-    "dupe_fix.FlowerPotBlockMixin",
     "dupe_fix.MusicDiscItemMixin",
     "dupe_fix.damage.AxeItemMixin",
     "dupe_fix.damage.FlintAndSteelItemMixin",
     "dupe_fix.damage.PumpkinBlockMixin",
     "dupe_fix.damage.ShearsItemMixin",
     "dupe_fix.damage.TntBlockMixin",
-    "entity.ItemFrameEntityMixin"
+    "entity.ItemFrameEntityMixin",
+    "items.GiveCommandMixin"
   ],
   "injectors": {
     "defaultRequire": 1
-  }
+  },
+  "client": [
+  ]
 }

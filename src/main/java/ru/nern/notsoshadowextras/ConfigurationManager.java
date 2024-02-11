@@ -71,6 +71,7 @@ public class ConfigurationManager
     {
         private String lastLoadedVersion = "";
         public Blocks blocks;
+        public Items items;
         public LightEngine light;
 
         public static class Blocks{
@@ -82,6 +83,10 @@ public class ConfigurationManager
             public boolean noSuppressionStacktrace = false;
         }
 
+        public static class Items {
+            public boolean giveCommandUnderstackedItems = false;
+        }
+
         public static class LightEngine {
             public boolean disableDataFixerLightRecalculation = true;
         }
@@ -89,6 +94,7 @@ public class ConfigurationManager
         public Config()
         {
             blocks = new Blocks();
+            items = new Items();
             light = new LightEngine();
         }
     }

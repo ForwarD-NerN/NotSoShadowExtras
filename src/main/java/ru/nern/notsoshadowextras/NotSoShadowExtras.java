@@ -41,7 +41,7 @@ public class NotSoShadowExtras implements ModInitializer {
 		ConfigurationManager.onInit();
 
 		if(FabricLoader.getInstance().isModLoaded("fabric-command-api-v2")) {
-			CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> dispatcher.register(literal("nse")
+			CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> dispatcher.register(literal("nsse")
 					.requires(source -> source.hasPermissionLevel(3)).then(literal("swap")
 							.then(CommandManager.argument("blockEntity", IdentifierArgumentType.identifier()).suggests(BLOCK_ENTITIES).executes(ctx -> swap(ctx.getSource(), IdentifierArgumentType.getIdentifier(ctx, "blockEntity")))))));
 		}

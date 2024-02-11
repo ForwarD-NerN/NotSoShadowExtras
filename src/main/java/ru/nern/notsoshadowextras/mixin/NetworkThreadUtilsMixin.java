@@ -11,7 +11,7 @@ import ru.nern.notsoshadowextras.NotSoShadowExtras;
 public class NetworkThreadUtilsMixin {
     @WrapWithCondition(method = "method_11072",
             at = @At(value = "INVOKE", target = "Lorg/slf4j/Logger;error(Ljava/lang/String;Ljava/lang/Object;Ljava/lang/Object;)V"))
-    private static boolean notsoshadowextra$hideStackTrace(Logger instance, String string, Object o, Object o2) {
+    private static boolean notsoshadowextras$hideStackTrace(Logger instance, String string, Object o, Object o2) {
         return !NotSoShadowExtras.config.blocks.noSuppressionStacktrace;
     }
 }
