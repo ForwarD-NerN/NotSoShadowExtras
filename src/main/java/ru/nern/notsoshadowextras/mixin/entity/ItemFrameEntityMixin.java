@@ -32,6 +32,7 @@ public class ItemFrameEntityMixin {
         return NotSoShadowExtras.config.blocks.updateSuppressionDupeFix ? stack.copy() : stack;
     }
 
+
     @Inject(method = "interact", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/decoration/ItemFrameEntity;setHeldItemStack(Lnet/minecraft/item/ItemStack;)V"), locals = LocalCapture.CAPTURE_FAILHARD)
     private void notsoshadowextras$consumeItem(PlayerEntity player, Hand hand, CallbackInfoReturnable<ActionResult> cir, ItemStack itemStack) {
         if(NotSoShadowExtras.config.blocks.updateSuppressionDupeFix) itemStack.decrementUnlessCreative(1, player);
