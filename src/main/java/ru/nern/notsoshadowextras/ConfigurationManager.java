@@ -81,6 +81,9 @@ public class ConfigurationManager
             public boolean updateSuppressionItemDamageFix = false;
             public boolean alertAboutUpdateSuppressionCrash = false;
             public boolean noSuppressionStacktrace = false;
+            public boolean copperBulb1gt = false;
+            public boolean crafter1gt = false;
+
         }
 
         public static class Items {

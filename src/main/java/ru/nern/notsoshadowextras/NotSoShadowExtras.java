@@ -10,11 +10,12 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.BlockWithEntity;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.argument.IdentifierArgumentType;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.LoreComponent;
+import net.minecraft.component.type.NbtComponent;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtList;
-import net.minecraft.nbt.NbtString;
 import net.minecraft.registry.Registries;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
@@ -24,6 +25,8 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.Collections;
 
 import static net.minecraft.server.command.CommandManager.literal;
 
@@ -54,18 +57,12 @@ public class NotSoShadowExtras implements ModInitializer {
 		if(!(stack.getItem() instanceof BlockItem)) throw IS_NOT_A_BLOCK.create();
 		if(!(((BlockItem)stack.getItem()).getBlock() instanceof BlockWithEntity)) throw NO_BLOCK_ENTITY.create();
 
-		stack.setSubNbt("StoredBlockEntity", NbtString.of(blockEntity.toString()));
+		NbtCompound compound = new NbtCompound();
+		compound.putString("StoredBlockEntity", blockEntity.toString());
+		stack.set(DataComponentTypes.CUSTOM_DATA, NbtComponent.of(compound));
 
-		NbtList list = new NbtList();
-		list.add(new NbtCompound());
-		stack.setSubNbt("Enchantments", list);
-
-		NbtList lore = new NbtList();
-		lore.add(NbtString.of(Text.Serialization.toJsonString(Text.literal("§f+"+blockEntity).formatted(Formatting.WHITE))));
-
-		NbtCompound display = stack.getOrCreateSubNbt("display");
-		display.put("Lore", lore);
-		stack.setSubNbt("display", display);
+		stack.set(DataComponentTypes.ENCHANTMENT_GLINT_OVERRIDE, true);
+		stack.set(DataComponentTypes.LORE, new LoreComponent(Collections.singletonList(Text.literal("§f+"+blockEntity).formatted(Formatting.WHITE))));
 
 		source.sendFeedback(() -> stack.getItem().getName().copy().append(Text.literal(" now has " +blockEntity)), false);
 		return 1;

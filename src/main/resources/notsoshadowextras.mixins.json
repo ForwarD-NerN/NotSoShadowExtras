@@ -8,6 +8,8 @@
     "HopperBlockEntityMixin",
     "MinecraftServerMixin",
     "NetworkThreadUtilsMixin",
+    "block.BulbBlockMixin",
+    "block.CrafterBlockMixin",
     "dupe_fix.BlockItemMixin",
     "dupe_fix.ComposterBlockMixin",
     "dupe_fix.MusicDiscItemMixin",

@@ -29,7 +29,7 @@ public class GiveCommandMixin {
     }
 
     @Inject(method = "execute", at = @At(value = "INVOKE", target = "Ljava/lang/Math;min(II)I", shift = At.Shift.BY, by = -5), locals = LocalCapture.CAPTURE_FAILHARD)
-    private static void notsoshadowextras$giveUnderstackedItems(ServerCommandSource source, ItemStackArgument item, Collection<ServerPlayerEntity> targets, int count, CallbackInfoReturnable<Integer> cir, int i, int j, ItemStack itemStack, Iterator var7, ServerPlayerEntity serverPlayerEntity, int k) throws CommandSyntaxException {
+    private static void notsoshadowextras$giveUnderstackedItems(ServerCommandSource source, ItemStackArgument item, Collection<ServerPlayerEntity> targets, int count, CallbackInfoReturnable<Integer> cir, ItemStack itemStack, int i, int j, Iterator var7, ServerPlayerEntity serverPlayerEntity, int k) throws CommandSyntaxException {
         if(k <= 0) {
             ItemEntity itemEntity;
             ItemStack itemStack2 = item.createStack(k, false);

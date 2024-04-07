@@ -3,6 +3,7 @@ package ru.nern.notsoshadowextras.mixin.dupe_fix;
 import com.llamalad7.mixinextras.injector.WrapWithCondition;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.component.DataComponentTypes;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemPlacementContext;
@@ -44,9 +45,9 @@ public abstract class BlockItemMixin {
     @Inject(method = "place(Lnet/minecraft/item/ItemPlacementContext;)Lnet/minecraft/util/ActionResult;", at = @At("RETURN"))
     private void notsoshadowextras$swapBlockEntity(ItemPlacementContext context, CallbackInfoReturnable<ActionResult> cir) {
         ItemStack stack = context.getStack();
-        if(context.getWorld().isClient || !stack.hasNbt() || !stack.getNbt().contains("StoredBlockEntity") || stack.getNbt().get("StoredBlockEntity").getNbtType() != NbtString.TYPE) return;
+        if(context.getWorld().isClient || !stack.getComponents().contains(DataComponentTypes.CUSTOM_DATA)) return;
 
-        Identifier identifier = Identifier.tryParse(stack.getNbt().getString("StoredBlockEntity"));
+        Identifier identifier = Identifier.tryParse(stack.getComponents().get(DataComponentTypes.CUSTOM_DATA).copyNbt().getString("StoredBlockEntity"));
         if(identifier == null) return;
 
         BlockPos pos = context.getBlockPos();
