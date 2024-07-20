@@ -1,11 +1,11 @@
 package ru.nern.notsoshadowextras.mixin;
 
-import com.llamalad7.mixinextras.injector.WrapWithCondition;
+import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import net.minecraft.block.entity.HopperBlockEntity;
 import net.minecraft.inventory.Inventory;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import ru.nern.notsoshadowextras.NotSoShadowExtras;
+import ru.nern.notsoshadowextras.NSSE;
 
 @Mixin(HopperBlockEntity.class)
 public class HopperBlockEntityMixin {
@@ -16,6 +16,6 @@ public class HopperBlockEntityMixin {
             at = @At(value = "INVOKE", target = "Lnet/minecraft/inventory/Inventory;markDirty()V")
     )
     private static boolean notsoshadowextras$hopperCrashFixDupeFix(Inventory instance) {
-        return !NotSoShadowExtras.config.blocks.updateSuppressionHopperDupeFix;
+        return !NSSE.config.blocks.updateSuppressionHopperDupeFix;
     }
 }

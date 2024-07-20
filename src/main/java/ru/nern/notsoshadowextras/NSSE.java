@@ -10,6 +10,7 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.BlockWithEntity;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.argument.IdentifierArgumentType;
+import net.minecraft.component.Component;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.LoreComponent;
 import net.minecraft.component.type.NbtComponent;
@@ -30,7 +31,7 @@ import java.util.Collections;
 
 import static net.minecraft.server.command.CommandManager.literal;
 
-public class NotSoShadowExtras implements ModInitializer {
+public class NSSE implements ModInitializer {
 	public static ConfigurationManager.Config config = new ConfigurationManager.Config();
 	public static final Logger LOGGER = LoggerFactory.getLogger("notsoshadowextras");
 	private static final SimpleCommandExceptionType IS_NOT_A_BLOCK = new SimpleCommandExceptionType(new LiteralMessage("Selected item is not a block"));
@@ -41,8 +42,6 @@ public class NotSoShadowExtras implements ModInitializer {
 	@Override
 	public void onInitialize()
 	{
-		ConfigurationManager.onInit();
-
 		if(FabricLoader.getInstance().isModLoaded("fabric-command-api-v2")) {
 			CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> dispatcher.register(literal("nsse")
 					.requires(source -> source.hasPermissionLevel(3)).then(literal("swap")
@@ -62,9 +61,9 @@ public class NotSoShadowExtras implements ModInitializer {
 		stack.set(DataComponentTypes.CUSTOM_DATA, NbtComponent.of(compound));
 
 		stack.set(DataComponentTypes.ENCHANTMENT_GLINT_OVERRIDE, true);
-		stack.set(DataComponentTypes.LORE, new LoreComponent(Collections.singletonList(Text.literal("§f+"+blockEntity).formatted(Formatting.WHITE))));
+		stack.set(DataComponentTypes.LORE, new LoreComponent(Collections.singletonList(Text.literal("§f+"+ blockEntity).formatted(Formatting.WHITE))));
 
-		source.sendFeedback(() -> stack.getItem().getName().copy().append(Text.literal(" now has " +blockEntity)), false);
+		source.sendFeedback(() -> stack.getItem().getName().copy().append(Text.literal(" now has " + blockEntity)), false);
 		return 1;
 	}
 }

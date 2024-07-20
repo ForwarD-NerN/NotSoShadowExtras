@@ -11,7 +11,7 @@ import net.minecraft.util.crash.CrashException;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
-import ru.nern.notsoshadowextras.NotSoShadowExtras;
+import ru.nern.notsoshadowextras.NSSE;
 
 import java.util.function.BooleanSupplier;
 
@@ -23,12 +23,12 @@ public class MinecraftServerMixin {
             at = @At(value = "INVOKE", target = "Lnet/minecraft/server/world/ServerWorld;tick(Ljava/util/function/BooleanSupplier;)V")
     )
     private void notsoshadowextras$updateSuppressionCrashFix(ServerWorld world, BooleanSupplier shouldKeepTicking, Operation<Void> original) {
-        if (NotSoShadowExtras.config.blocks.updateSuppressionCrashFix) {
+        if (NSSE.config.blocks.updateSuppressionCrashFix) {
             try{
                 original.call(world, shouldKeepTicking);
             }catch (ClassCastException | StackOverflowError | CrashException error) {
-                if(!NotSoShadowExtras.config.blocks.noSuppressionStacktrace) error.printStackTrace();
-                if(NotSoShadowExtras.config.blocks.alertAboutUpdateSuppressionCrash) alertDimensionAboutCrash(world);
+                if(!NSSE.config.blocks.noSuppressionStacktrace) error.printStackTrace();
+                if(NSSE.config.blocks.alertAboutUpdateSuppressionCrash) alertDimensionAboutCrash(world);
             }
         } else {
             original.call(world, shouldKeepTicking);

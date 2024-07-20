@@ -1,25 +1,24 @@
 package ru.nern.notsoshadowextras.mixin.dupe_fix;
 
-import com.llamalad7.mixinextras.injector.WrapWithCondition;
-import net.minecraft.block.BlockState;
+import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
+import com.llamalad7.mixinextras.sugar.Share;
+import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtString;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
-import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import ru.nern.notsoshadowextras.NotSoShadowExtras;
+import ru.nern.notsoshadowextras.NSSE;
 
 import java.util.Optional;
 
@@ -29,19 +28,22 @@ public abstract class BlockItemMixin {
 
     //Mojang: we have save code at home
     //Save code at home:
-    @WrapWithCondition(
-            method = "place(Lnet/minecraft/item/ItemPlacementContext;)Lnet/minecraft/util/ActionResult;",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;decrementUnlessCreative(ILnet/minecraft/entity/LivingEntity;)V")
-    )
-    private boolean notsoshadowextras$wrapDecrementWithCondition(ItemStack stack, int amount, LivingEntity entity) {
-        return !NotSoShadowExtras.config.blocks.updateSuppressionDupeFix;
+
+    @Inject(method = "place(Lnet/minecraft/item/ItemPlacementContext;)Lnet/minecraft/util/ActionResult;", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/BlockItem;getPlacementState(Lnet/minecraft/item/ItemPlacementContext;)Lnet/minecraft/block/BlockState;", shift = At.Shift.AFTER))
+    private void notsoshadowextras$replaceWithFakeStack(ItemPlacementContext context, CallbackInfoReturnable<ActionResult> cir, @Share("fakeStack") LocalRef<ItemStack> fakeStackRef) {
+        if(NSSE.config.blocks.updateSuppressionDupeFix) {
+            ItemStack original = context.getStack();
+            fakeStackRef.set(original.copy());
+            original.decrementUnlessCreative(1, context.getPlayer());
+        }
     }
 
-    @Inject(method = "place(Lnet/minecraft/item/ItemPlacementContext;)Lnet/minecraft/util/ActionResult;", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/BlockItem;place(Lnet/minecraft/item/ItemPlacementContext;Lnet/minecraft/block/BlockState;)Z"))
-    private void notsoshadowextras$moveBeforeBlockPlacement(ItemPlacementContext context, CallbackInfoReturnable<ActionResult> cir) {
-        if(NotSoShadowExtras.config.blocks.updateSuppressionDupeFix) context.getStack().decrementUnlessCreative(1, context.getPlayer());
+    @ModifyVariable(method = "place(Lnet/minecraft/item/ItemPlacementContext;)Lnet/minecraft/util/ActionResult;", at = @At("STORE"), ordinal = 0)
+    private ItemStack nospatches$useFakeStack(ItemStack stack, @Share("fakeStack") LocalRef<ItemStack> fakeStackRef) {
+        return NSSE.config.blocks.updateSuppressionDupeFix ? fakeStackRef.get() : stack;
     }
 
+    // Swapping the block entity of a newly placed block if there is StoredBlockEntityTag(used in /nsse swap)
     @Inject(method = "place(Lnet/minecraft/item/ItemPlacementContext;)Lnet/minecraft/util/ActionResult;", at = @At("RETURN"))
     private void notsoshadowextras$swapBlockEntity(ItemPlacementContext context, CallbackInfoReturnable<ActionResult> cir) {
         ItemStack stack = context.getStack();

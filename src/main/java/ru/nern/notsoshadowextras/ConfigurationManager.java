@@ -11,7 +11,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.stream.Stream;
 
-import static ru.nern.notsoshadowextras.NotSoShadowExtras.config;
+import static ru.nern.notsoshadowextras.NSSE.config;
 
 public class ConfigurationManager
 {
@@ -60,7 +60,7 @@ public class ConfigurationManager
     }
 
     public static void setConfig(Config config) {
-        NotSoShadowExtras.config = config;
+        NSSE.config = config;
     }
 
     public static Config getConfig() {
@@ -87,7 +87,7 @@ public class ConfigurationManager
         }
 
         public static class Items {
-            public boolean giveCommandUnderstackedItems = false;
+            public int maxCountPerStack = 127; // 1095216660 is the maximum. Past that, the game underflows the value
         }
 
         public static class LightEngine {

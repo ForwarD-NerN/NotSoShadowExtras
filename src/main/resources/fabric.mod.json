@@ -19,7 +19,10 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "ru.nern.notsoshadowextras.NotSoShadowExtras"
+      "ru.nern.notsoshadowextras.NSSE"
+    ],
+    "preLaunch": [
+      "ru.nern.notsoshadowextras.NSSEPreLaunch"
     ]
   },
   "mixins": [
