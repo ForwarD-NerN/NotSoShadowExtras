@@ -1,16 +1,7 @@
 package ru.nern.notsoshadowextras.mixin;
 
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.InputSlotFiller;
-import net.minecraft.screen.AbstractRecipeScreenHandler;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
-import org.spongepowered.asm.mixin.Shadow;
-
 /*
-This is for test purposes only
+This is for testing purposes only
 @Mixin(InputSlotFiller.class)
 
 public class InputSlotFillerMixin<C extends Inventory> {

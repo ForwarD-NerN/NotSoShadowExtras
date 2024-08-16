@@ -1,4 +1,4 @@
-package ru.nern.notsoshadowextras.mixin.damage_fix;
+package ru.nern.notsoshadowextras.mixin.damage_fix.update;
 
 import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import net.minecraft.advancement.criterion.Criteria;
@@ -22,7 +22,7 @@ public class FlintAndSteelItemMixin {
     @Inject(method = "useOnBlock", at = @At(value = "INVOKE",
             target = "Lnet/minecraft/world/World;playSound(Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/sound/SoundEvent;Lnet/minecraft/sound/SoundCategory;FF)V", ordinal = 0))
     private void notsoshadowextras$damageFlintAndSteelCampfire(ItemUsageContext context, CallbackInfoReturnable<ActionResult> cir) {
-        if(NSSE.config.blocks.updateSuppressionItemDamageFix && context.getPlayer() != null)
+        if(NSSE.config().Update_Suppression.ItemDamageFix && context.getPlayer() != null)
             context.getStack().damage(1, context.getPlayer(), LivingEntity.getSlotForHand(context.getHand()));
     }
 
@@ -31,13 +31,13 @@ public class FlintAndSteelItemMixin {
             at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;damage(ILnet/minecraft/entity/LivingEntity;Lnet/minecraft/entity/EquipmentSlot;)V", ordinal = 0)
     )
     private boolean notsoshadowextras$wrapDamageWithConditionCampfire(ItemStack stack, int amount, LivingEntity entity, EquipmentSlot slot) {
-        return !NSSE.config.blocks.updateSuppressionItemDamageFix;
+        return !NSSE.config().Update_Suppression.ItemDamageFix;
     }
 
     @Inject(method = "useOnBlock", at = @At(value = "INVOKE",
             target = "Lnet/minecraft/world/World;setBlockState(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;I)Z", ordinal = 1))
     private void notsoshadowextras$damageFlintAndSteel(ItemUsageContext context, CallbackInfoReturnable<ActionResult> cir) {
-        if(NSSE.config.blocks.updateSuppressionItemDamageFix &&
+        if(NSSE.config().Update_Suppression.ItemDamageFix &&
                 context.getPlayer() instanceof ServerPlayerEntity){
             PlayerEntity playerEntity = context.getPlayer();
             ItemStack itemStack = context.getStack();
@@ -49,6 +49,6 @@ public class FlintAndSteelItemMixin {
     @Inject(method = "useOnBlock", at = @At(value = "INVOKE",
             target = "Lnet/minecraft/world/World;emitGameEvent(Lnet/minecraft/entity/Entity;Lnet/minecraft/registry/entry/RegistryEntry;Lnet/minecraft/util/math/BlockPos;)V", ordinal = 1, shift = At.Shift.AFTER), cancellable = true)
     private void notsoshadowextras$cancelFlintAndSteelDamage(ItemUsageContext context, CallbackInfoReturnable<ActionResult> cir) {
-        if(NSSE.config.blocks.updateSuppressionItemDamageFix) cir.setReturnValue(ActionResult.success(context.getWorld().isClient()));
+        if(NSSE.config().Update_Suppression.ItemDamageFix) cir.setReturnValue(ActionResult.success(context.getWorld().isClient()));
     }
 }

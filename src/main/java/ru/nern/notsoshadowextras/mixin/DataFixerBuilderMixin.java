@@ -15,6 +15,6 @@ public class DataFixerBuilderMixin {
     //Just prevents ChunkDeleteLightFix from being added to the df list and prevents light recalculation from occurring when updating to 1.20
     @Inject(at = @At("HEAD"), method = "addFixer", cancellable = true)
     private void notsoshadowextras$disableDeleteLightDataFixer(DataFix fix, CallbackInfo ci) {
-        if(NSSE.config.light.disableDataFixerLightRecalculation && fix instanceof ChunkDeleteLightFix) ci.cancel();
+        if(NSSE.config().Misc.DisableLightRecalculationDataFixer && fix instanceof ChunkDeleteLightFix) ci.cancel();
     }
 }

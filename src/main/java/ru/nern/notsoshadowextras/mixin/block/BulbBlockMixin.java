@@ -27,7 +27,7 @@ public abstract class BulbBlockMixin extends Block {
             at = @At(value = "INVOKE", target = "Lnet/minecraft/block/BulbBlock;update(Lnet/minecraft/block/BlockState;Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/util/math/BlockPos;)V")
     )
     private void antishadowpatch$bringBackCopperBulb1gt(BulbBlock instance, BlockState state, ServerWorld world, BlockPos pos, Operation<Void> original) {
-        if(NSSE.config.blocks.copperBulb1gt) {
+        if(NSSE.config().Blocks.CopperBulb_1gt) {
             world.scheduleBlockTick(pos, this, 1);
         }else {
             original.call(instance, state, world, pos);
@@ -36,6 +36,6 @@ public abstract class BulbBlockMixin extends Block {
 
     @Override
     protected void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-        if(NSSE.config.blocks.copperBulb1gt) this.update(state, world, pos);
+        if(NSSE.config().Blocks.CopperBulb_1gt) this.update(state, world, pos);
     }
 }

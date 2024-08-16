@@ -10,6 +10,6 @@ import ru.nern.notsoshadowextras.NSSE;
 public class CrafterBlockMixin {
     @ModifyConstant(method = {"onPlaced", "neighborUpdate"}, constant = @Constant(intValue = 4))
     private int nospatches$bringBackCrafter1gt(int value) {
-        return NSSE.config.blocks.crafter1gt ? 1 : value;
+        return NSSE.config().Blocks.Crafter_1gt ? 1 : value;
     }
 }

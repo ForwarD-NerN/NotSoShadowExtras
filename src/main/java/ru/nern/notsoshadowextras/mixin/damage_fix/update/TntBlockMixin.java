@@ -1,4 +1,4 @@
-package ru.nern.notsoshadowextras.mixin.damage_fix;
+package ru.nern.notsoshadowextras.mixin.damage_fix.update;
 
 import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import net.minecraft.block.Block;
@@ -23,7 +23,7 @@ public class TntBlockMixin {
     @Inject(method = "onUseWithItem", at = @At(value = "INVOKE",
             target = "Lnet/minecraft/entity/player/PlayerEntity;incrementStat(Lnet/minecraft/stat/Stat;)V", ordinal = 0, shift = At.Shift.AFTER))
     private void notsoshadowextras$removeTNTBlock(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit, CallbackInfoReturnable<ItemActionResult> cir) {
-        if(NSSE.config.blocks.updateSuppressionItemDamageFix) world.setBlockState(pos, Blocks.AIR.getDefaultState(), Block.NOTIFY_ALL | Block.REDRAW_ON_MAIN_THREAD);
+        if(NSSE.config().Update_Suppression.ItemDamageFix) world.setBlockState(pos, Blocks.AIR.getDefaultState(), Block.NOTIFY_ALL | Block.REDRAW_ON_MAIN_THREAD);
     }
 
     @WrapWithCondition(
@@ -31,6 +31,6 @@ public class TntBlockMixin {
             at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;setBlockState(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;I)Z")
     )
     private boolean notsoshadowextras$wrapSetBlockStateWithCondition(World world, BlockPos pos, BlockState state, int flags) {
-        return !NSSE.config.blocks.updateSuppressionItemDamageFix;
+        return !NSSE.config().Update_Suppression.ItemDamageFix;
     }
 }

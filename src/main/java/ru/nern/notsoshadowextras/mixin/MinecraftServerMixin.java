@@ -8,36 +8,56 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.crash.CrashException;
+import org.slf4j.Logger;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import ru.nern.notsoshadowextras.NSSE;
+import ru.nern.notsoshadowextras.crash_fix.UpdateSuppressionReason;
 
 import java.util.function.BooleanSupplier;
 
 @Mixin(MinecraftServer.class)
 public class MinecraftServerMixin {
 
+    @Shadow @Final private static Logger LOGGER;
+
     @WrapOperation(
             method = "tickWorlds",
             at = @At(value = "INVOKE", target = "Lnet/minecraft/server/world/ServerWorld;tick(Ljava/util/function/BooleanSupplier;)V")
     )
     private void notsoshadowextras$updateSuppressionCrashFix(ServerWorld world, BooleanSupplier shouldKeepTicking, Operation<Void> original) {
-        if (NSSE.config.blocks.updateSuppressionCrashFix) {
-            try{
+        if (NSSE.config().Update_Suppression.CrashFix) {
+            try {
                 original.call(world, shouldKeepTicking);
-            }catch (ClassCastException | StackOverflowError | CrashException error) {
-                if(!NSSE.config.blocks.noSuppressionStacktrace) error.printStackTrace();
-                if(NSSE.config.blocks.alertAboutUpdateSuppressionCrash) alertDimensionAboutCrash(world);
+            }catch (StackOverflowError | ClassCastException | IllegalArgumentException | CrashException error) {
+                if(!NSSE.config().Update_Suppression.HideStackTrace) LOGGER.error("Exception occurred during world ticking", error);
+                if(NSSE.config().Update_Suppression.AlertAboutCrash) this.alertDimensionAboutCrash(world, getReason(error.getCause()));
             }
         } else {
             original.call(world, shouldKeepTicking);
         }
     }
+
+    private static UpdateSuppressionReason getReason(Throwable cause) {
+        if(cause instanceof StackOverflowError) {
+            return UpdateSuppressionReason.SO;
+        }else if(cause instanceof ClassCastException) {
+            return UpdateSuppressionReason.CCE;
+        }else if(cause instanceof OutOfMemoryError) {
+            return UpdateSuppressionReason.OOM;
+        }else if(cause instanceof IllegalArgumentException) {
+            return UpdateSuppressionReason.SOUND;
+        }
+        return UpdateSuppressionReason.UNKNOWN;
+    }
+
     @Unique
-    private void alertDimensionAboutCrash(ServerWorld world) {
+    private void alertDimensionAboutCrash(ServerWorld world, UpdateSuppressionReason reason) {
         MinecraftServer server = (MinecraftServer) (Object) this;
         server.getPlayerManager().sendToDimension(
-                new GameMessageS2CPacket(Text.literal("Update Suppression crash just occurred!").formatted(Formatting.GRAY), false), world.getRegistryKey());
+                new GameMessageS2CPacket(Text.literal(String.format("%s Suppression crash just occurred.", reason.getName())).formatted(Formatting.GRAY), false), world.getRegistryKey());
     }
 }

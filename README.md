@@ -19,7 +19,7 @@ Addon to [AntiShadowPatch](https://modrinth.com/mod/antishadowpatch) that adds e
 * * When loading 1.19- chunks in 1.20+, the new light engine recalculates light in every single one of them. This option prevents it. If you have an EOL farm, you can load chunks with it once, and the EOL farm will work even without the mod enabled.
 * Max Count Per Stack
 * * Increases max stack size of the item. 
-* * Note that while vanilla clients can see overstacked items and hold them in the inventory, they can't really move them and will also be kicked if they see a give command output. You can see this behavior [here](https://www.youtube.com/watch?v=8DBCKKCNCYo)
+* * Note that while vanilla clients can see overstacked items and hold them in the inventory, they can't really move them and will also be kicked if they see a give command output. You can see this behavior [here](https://www.youtube.com/watch?v=8DBCKKCNCYo).
 
 
 #### Commands (requires Fabric API)

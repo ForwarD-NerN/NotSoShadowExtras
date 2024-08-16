@@ -10,8 +10,8 @@ import ru.nern.notsoshadowextras.NSSE;
 @Mixin(ServerCrashSafePacketListener.class)
 public interface ServerCrashSafePacketListenerMixin {
     @WrapWithCondition(method = "onPacketException",
-            at = @At(value = "INVOKE", target = "Lorg/slf4j/Logger;error(Ljava/lang/String;Ljava/lang/Object;Ljava/lang/Object;)V"))
+            at = @At(value = "INVOKE", target = "Lorg/slf4j/Logger;error(Ljava/lang/String;Ljava/lang/Object;Ljava/lang/Object;)V"), remap = false)
     private boolean notsoshadowextras$hideStackTrace(Logger instance, String string, Object o, Object o2) {
-        return !NSSE.config.blocks.noSuppressionStacktrace;
+        return !NSSE.config().Update_Suppression.HideStackTrace;
     }
 }

@@ -6,6 +6,6 @@ public class NSSEPreLaunch implements PreLaunchEntrypoint {
     // Loads the config in the pre-launch entrypoint to make maxCountPerStack work properly
     @Override
     public void onPreLaunch() {
-        ConfigurationManager.onInit();
+        NSSE.configManager.init();
     }
 }
