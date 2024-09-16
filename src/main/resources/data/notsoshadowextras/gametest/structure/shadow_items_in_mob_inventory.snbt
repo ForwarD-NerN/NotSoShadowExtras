@@ -1,0 +1,51 @@
+{
+    DataVersion: 3955,
+    size: [3, 4, 3],
+    data: [
+        {pos: [0, 0, 0], state: "minecraft:bedrock"},
+        {pos: [0, 0, 1], state: "minecraft:bedrock"},
+        {pos: [0, 0, 2], state: "minecraft:bedrock"},
+        {pos: [1, 0, 0], state: "minecraft:bedrock"},
+        {pos: [1, 0, 1], state: "minecraft:bedrock"},
+        {pos: [1, 0, 2], state: "minecraft:bedrock"},
+        {pos: [2, 0, 0], state: "minecraft:bedrock"},
+        {pos: [2, 0, 1], state: "minecraft:bedrock"},
+        {pos: [2, 0, 2], state: "minecraft:bedrock"},
+        {pos: [0, 1, 0], state: "minecraft:air"},
+        {pos: [0, 1, 1], state: "minecraft:glass"},
+        {pos: [0, 1, 2], state: "minecraft:air"},
+        {pos: [1, 1, 0], state: "minecraft:glass"},
+        {pos: [1, 1, 1], state: "minecraft:air"},
+        {pos: [1, 1, 2], state: "minecraft:glass"},
+        {pos: [2, 1, 0], state: "minecraft:air"},
+        {pos: [2, 1, 1], state: "minecraft:glass"},
+        {pos: [2, 1, 2], state: "minecraft:air"},
+        {pos: [0, 2, 0], state: "minecraft:air"},
+        {pos: [0, 2, 1], state: "minecraft:glass"},
+        {pos: [0, 2, 2], state: "minecraft:air"},
+        {pos: [1, 2, 0], state: "minecraft:glass"},
+        {pos: [1, 2, 1], state: "minecraft:air"},
+        {pos: [1, 2, 2], state: "minecraft:glass"},
+        {pos: [2, 2, 0], state: "minecraft:air"},
+        {pos: [2, 2, 1], state: "minecraft:glass"},
+        {pos: [2, 2, 2], state: "minecraft:air"},
+        {pos: [0, 3, 0], state: "minecraft:stone"},
+        {pos: [0, 3, 1], state: "minecraft:stone"},
+        {pos: [0, 3, 2], state: "minecraft:stone"},
+        {pos: [1, 3, 0], state: "minecraft:stone"},
+        {pos: [1, 3, 1], state: "minecraft:stone"},
+        {pos: [1, 3, 2], state: "minecraft:stone"},
+        {pos: [2, 3, 0], state: "minecraft:stone"},
+        {pos: [2, 3, 1], state: "minecraft:stone"},
+        {pos: [2, 3, 2], state: "minecraft:stone"}
+    ],
+    entities: [
+        {blockPos: [1, 1, 1], pos: [1.699999988079071d, 1.0d, 1.6722215603893744d], nbt: {AbsorptionAmount: 0.0f, Air: 300s, ArmorDropChances: [0.085f, 0.085f, 0.085f, 0.085f], ArmorItems: [{}, {}, {}, {}], Brain: {memories: {}}, CanBreakDoors: 0b, CanPickUpLoot: 1b, DeathTime: 0s, DrownedConversionTime: -1, FallDistance: 0.0f, FallFlying: 0b, Fire: -1s, HandDropChances: [0.085f, 0.085f], HandItems: [{}, {}], Health: 20.0f, HurtByTimestamp: 0, HurtTime: 0s, InWaterTime: -1, Invulnerable: 0b, IsBaby: 0b, LeftHanded: 0b, Motion: [0.0d, -0.0784000015258789d, 0.0d], OnGround: 1b, PersistenceRequired: 0b, PortalCooldown: 0, Pos: [-63.30000001192093d, -32.0d, 130.67222156038937d], Rotation: [0.0f, 40.0f], UUID: [I; -157292004, 717967347, -1945125483, -678660174], attributes: [{base: 0.23000000417232513d, id: "minecraft:generic.movement_speed"}], id: "minecraft:zombie"}}
+    ],
+    palette: [
+        "minecraft:bedrock",
+        "minecraft:glass",
+        "minecraft:stone",
+        "minecraft:air"
+    ]
+}

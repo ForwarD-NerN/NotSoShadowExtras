@@ -9,7 +9,7 @@ import ru.nern.notsoshadowextras.NSSE;
 @Mixin(DataComponentTypes.class)
 public class DataComponentTypesMixin {
     @ModifyConstant(method = "method_58570", constant = @Constant(intValue = 99))
-    private static int nospatches$maxCountPerStack(int value) {
+    private static int notsoshadowextras$maxCountPerStack(int value) {
         return NSSE.config().Items.MaxCountPerStack;
     }
 }

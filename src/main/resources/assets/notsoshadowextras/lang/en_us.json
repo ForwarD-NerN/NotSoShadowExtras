@@ -1,0 +1,4 @@
+{
+  "commands.nsse.swap.stack": "%s now has %s",
+  "commands.nsse.swap.block": "Block Entity at position %s changed to %s"
+}

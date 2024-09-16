@@ -9,7 +9,7 @@ import ru.nern.notsoshadowextras.NSSE;
 @Mixin(Inventory.class)
 public interface InventoryMixin {
     @ModifyConstant(method = "getMaxCountPerStack", constant = @Constant(intValue = 99))
-    private int nospatches$maxCountPerStack(int value) {
+    private int notsoshadowextras$maxCountPerStack(int value) {
         return NSSE.config().Items.MaxCountPerStack;
     }
 }

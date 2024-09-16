@@ -12,7 +12,6 @@
     "homepage": "https://modrinth.com/mod/notsoshadowextras",
     "sources": "https://github.com/ForwarD-NerN/NotSoShadowExtras"
   },
-
   "license": "MIT",
   "icon": "assets/notsoshadowextras/icon.png",
 
@@ -21,8 +20,8 @@
     "main": [
       "ru.nern.notsoshadowextras.NSSE"
     ],
-    "preLaunch": [
-      "ru.nern.notsoshadowextras.NSSEPreLaunch"
+    "fabric-gametest": [
+      "ru.nern.notsoshadowextras.test.NSSETests"
     ]
   },
   "mixins": [

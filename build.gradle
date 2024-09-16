@@ -68,6 +68,7 @@ jar {
 	from("LICENSE") {
 		rename { "${it}_${project.archivesBaseName}"}
 	}
+	exclude('/data/')
 }
 
 // configure the maven publication

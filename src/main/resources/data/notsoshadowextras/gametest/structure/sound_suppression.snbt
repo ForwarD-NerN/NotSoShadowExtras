@@ -1,0 +1,41 @@
+{
+    DataVersion: 3955,
+    size: [3, 3, 3],
+    data: [
+        {pos: [0, 0, 0], state: "minecraft:bedrock"},
+        {pos: [0, 0, 1], state: "minecraft:bedrock"},
+        {pos: [0, 0, 2], state: "minecraft:bedrock"},
+        {pos: [1, 0, 0], state: "minecraft:bedrock"},
+        {pos: [1, 0, 1], state: "minecraft:bedrock"},
+        {pos: [1, 0, 2], state: "minecraft:bedrock"},
+        {pos: [2, 0, 0], state: "minecraft:bedrock"},
+        {pos: [2, 0, 1], state: "minecraft:bedrock"},
+        {pos: [2, 0, 2], state: "minecraft:bedrock"},
+        {pos: [0, 1, 0], state: "minecraft:air"},
+        {pos: [0, 1, 1], state: "minecraft:air"},
+        {pos: [0, 1, 2], state: "minecraft:air"},
+        {pos: [1, 1, 0], state: "minecraft:lectern{facing:north,has_book:true,powered:false}", nbt: {Book: {components: {"minecraft:writable_book_content": {pages: [{raw: ""}, {raw: ""}, {raw: ""}, {raw: ""}, {raw: ""}, {raw: ""}, {raw: ""}, {raw: ""}, {raw: ""}, {raw: ""}, {raw: ""}, {raw: ""}, {raw: ""}, {raw: ""}, {raw: "f"}]}}, count: 1, id: "minecraft:writable_book"}, Page: 14, id: "minecraft:lectern"}},
+        {pos: [1, 1, 1], state: "minecraft:comparator{facing:north,mode:compare,powered:true}", nbt: {OutputSignal: 15, id: "minecraft:comparator"}},
+        {pos: [1, 1, 2], state: "minecraft:trapped_chest{facing:south,type:single,waterlogged:false}", nbt: {id: "minecraft:calibrated_sculk_sensor", last_vibration_frequency: 0, listener: {event_delay: 0, selector: {tick: -1L}}}},
+        {pos: [2, 1, 0], state: "minecraft:air"},
+        {pos: [2, 1, 1], state: "minecraft:air"},
+        {pos: [2, 1, 2], state: "minecraft:air"},
+        {pos: [0, 2, 0], state: "minecraft:air"},
+        {pos: [0, 2, 1], state: "minecraft:air"},
+        {pos: [0, 2, 2], state: "minecraft:air"},
+        {pos: [1, 2, 0], state: "minecraft:air"},
+        {pos: [1, 2, 1], state: "minecraft:air"},
+        {pos: [1, 2, 2], state: "minecraft:air"},
+        {pos: [2, 2, 0], state: "minecraft:air"},
+        {pos: [2, 2, 1], state: "minecraft:air"},
+        {pos: [2, 2, 2], state: "minecraft:air"}
+    ],
+    entities: [],
+    palette: [
+        "minecraft:bedrock",
+        "minecraft:air",
+        "minecraft:lectern{facing:north,has_book:true,powered:false}",
+        "minecraft:comparator{facing:north,mode:compare,powered:true}",
+        "minecraft:trapped_chest{facing:south,type:single,waterlogged:false}"
+    ]
+}
