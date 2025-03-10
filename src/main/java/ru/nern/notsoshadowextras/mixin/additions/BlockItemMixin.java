@@ -29,7 +29,7 @@ public class BlockItemMixin {
 
         BlockPos pos = context.getBlockPos();
 
-        Optional<BlockEntity> blockEntity = Registries.BLOCK_ENTITY_TYPE.getOrEmpty(identifier).map(type -> {
+        Optional<BlockEntity> blockEntity = Registries.BLOCK_ENTITY_TYPE.getOptionalValue(identifier).map(type -> {
             try {
                 return type.instantiate(context.getBlockPos(), context.getWorld().getBlockState(pos));
             } catch (Throwable throwable) {

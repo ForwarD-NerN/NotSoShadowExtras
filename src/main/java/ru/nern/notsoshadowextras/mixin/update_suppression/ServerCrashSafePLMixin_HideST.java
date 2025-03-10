@@ -5,7 +5,6 @@ import net.minecraft.network.listener.ServerCrashSafePacketListener;
 import org.slf4j.Logger;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import ru.nern.notsoshadowextras.NSSE;
 
 @Mixin(ServerCrashSafePacketListener.class)
 public interface ServerCrashSafePLMixin_HideST {
