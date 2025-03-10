@@ -18,7 +18,6 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.Registries;
-import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -31,6 +30,7 @@ import java.util.Collections;
 import java.util.Optional;
 
 import static net.minecraft.server.command.CommandManager.literal;
+import static net.minecraft.server.command.CommandManager.argument;
 
 public class NSSECommands {
     private static final SimpleCommandExceptionType IS_NOT_A_BLOCK = new SimpleCommandExceptionType(new LiteralMessage("Selected item is not a block"));
@@ -39,26 +39,23 @@ public class NSSECommands {
     private static final SuggestionProvider<ServerCommandSource> BLOCK_ENTITIES = (context, builder) -> CommandSource.suggestIdentifiers(Registries.BLOCK_ENTITY_TYPE.getIds(), builder);
 
     protected static void init() {
-        if(FabricLoader.getInstance().isModLoaded("fabric-command-api-v2") && NSSE.config().Additions.BlockEntitySwapCommand) {
+        if (FabricLoader.getInstance().isModLoaded("fabric-command-api-v2") && NSSE.config().Additions.BlockEntitySwapCommand) {
             CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> dispatcher.register(literal("nsse")
                     .requires(source -> source.hasPermissionLevel(3))
                     .then(literal("exists")
-                            .then(CommandManager.argument( "pos", BlockPosArgumentType.blockPos())
-                            .executes(ctx -> blockEntityExists(ctx.getSource(), BlockPosArgumentType.getLoadedBlockPos(ctx, "pos")))))
+                            .then(argument("pos", BlockPosArgumentType.blockPos())
+                                    .executes(ctx -> blockEntityExists(ctx.getSource(), BlockPosArgumentType.getLoadedBlockPos(ctx, "pos")))))
                     .then(literal("swap")
-                            .then(CommandManager.literal("block")
-                                    .then(CommandManager.argument("pos", BlockPosArgumentType.blockPos())
-                                            .then(literal("set")
-                                                    .then(CommandManager.argument("blockEntity", IdentifierArgumentType.identifier()).suggests(BLOCK_ENTITIES)
-                                                            .executes(ctx -> swapAtPos(ctx.getSource(), IdentifierArgumentType.getIdentifier(ctx, "blockEntity"), BlockPosArgumentType.getLoadedBlockPos(ctx, "pos")))))))
-                            .then(CommandManager.argument("blockEntity", IdentifierArgumentType.identifier()).suggests(BLOCK_ENTITIES)
-                                    .executes(ctx -> swap(ctx.getSource(), IdentifierArgumentType.getIdentifier(ctx, "blockEntity")))))));
+                            .then(argument("blockEntity", IdentifierArgumentType.identifier()).suggests(BLOCK_ENTITIES)
+                                    .executes(ctx -> swap(ctx.getSource(), IdentifierArgumentType.getIdentifier(ctx, "blockEntity")))
+                                    .then(argument("pos", BlockPosArgumentType.blockPos())
+                                            .executes(ctx -> swapAtPos(ctx.getSource(), IdentifierArgumentType.getIdentifier(ctx, "blockEntity"), BlockPosArgumentType.getLoadedBlockPos(ctx, "pos"))))))));
         }
     }
 
     public static int blockEntityExists(ServerCommandSource source, BlockPos pos) {
         BlockEntity blockEntity = source.getWorld().getChunk(pos).blockEntities.get(pos);
-        ;
+
         if(blockEntity == null) {
             source.sendFeedback(() ->
                     Text.literal("Block entity does not exist at this position"), false);
@@ -71,6 +68,9 @@ public class NSSECommands {
     }
 
     public static int swapAtPos(ServerCommandSource source, Identifier id, BlockPos pos) throws CommandSyntaxException {
+        if (!(source.getWorld().getBlockState(pos).getBlock() instanceof BlockWithEntity)) {
+            throw BLOCK_ENTITY_UNSUPPORTED.create();
+        }
         swapAtPos(source.getWorld(), id, pos);
         source.sendFeedback(() ->
                 Text.literal(String.format("The block entity at position %s has been changed to %s", pos.toShortString(), id.toString())), false);
@@ -80,7 +80,7 @@ public class NSSECommands {
     public static void swapAtPos(ServerWorld world, Identifier id, BlockPos pos) throws CommandSyntaxException {
         BlockEntity current = world.getBlockEntity(pos);
 
-        Optional<BlockEntity> blockEntity = Registries.BLOCK_ENTITY_TYPE.getOrEmpty(id).map(type -> {
+        Optional<BlockEntity> blockEntity = Registries.BLOCK_ENTITY_TYPE.getOptionalValue(id).map(type -> {
             try {
                 return type.instantiate(pos, world.getBlockState(pos));
             } catch (Throwable throwable) {
@@ -107,7 +107,7 @@ public class NSSECommands {
         stack.set(DataComponentTypes.LORE, new LoreComponent(Collections.singletonList(Text.literal("§f+"+ blockEntity).formatted(Formatting.WHITE))));
 
         source.sendFeedback(() ->
-                Text.literal(String.format("%s now has %s", stack.getItem().getName(), blockEntity)), false);
+                Text.literal(String.format("%s now has %s", Registries.ITEM.getId(stack.getItem()) , blockEntity)), false);
         return 1;
     }
 }
