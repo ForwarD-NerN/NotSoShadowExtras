@@ -20,7 +20,6 @@
     "sound_suppression.dupe_fix.FireChargeItemMixin",
     "sound_suppression.dupe_fix.MinecartItemMixin",
     "sound_suppression.dupe_fix.SpawnEggItemMixin",
-    "test.TestManagerMixin",
     "update_suppression.HopperBlockEntityMixin",
     "update_suppression.MinecraftServerMixin_CrashFix",
     "update_suppression.ServerCrashSafePLMixin_HideST",
