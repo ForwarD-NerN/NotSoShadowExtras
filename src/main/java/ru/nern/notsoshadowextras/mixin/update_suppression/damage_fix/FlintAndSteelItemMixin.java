@@ -14,7 +14,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import ru.nern.notsoshadowextras.NSSE;
 
 @Mixin(FlintAndSteelItem.class)
 public class FlintAndSteelItemMixin {
@@ -48,6 +47,6 @@ public class FlintAndSteelItemMixin {
     @Inject(method = "useOnBlock", at = @At(value = "INVOKE",
             target = "Lnet/minecraft/world/World;emitGameEvent(Lnet/minecraft/entity/Entity;Lnet/minecraft/registry/entry/RegistryEntry;Lnet/minecraft/util/math/BlockPos;)V", ordinal = 1, shift = At.Shift.AFTER), cancellable = true)
     private void notsoshadowextras$cancelFlintAndSteelDamage(ItemUsageContext context, CallbackInfoReturnable<ActionResult> cir) {
-        cir.setReturnValue(ActionResult.success(context.getWorld().isClient()));
+        cir.setReturnValue(ActionResult.SUCCESS);
     }
 }
