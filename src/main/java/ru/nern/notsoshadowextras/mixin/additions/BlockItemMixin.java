@@ -1,5 +1,6 @@
 package ru.nern.notsoshadowextras.mixin.additions;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.item.BlockItem;
@@ -18,7 +19,7 @@ import java.util.Optional;
 
 @Mixin(BlockItem.class)
 public class BlockItemMixin {
-    // Swapping the block entity of a newly placed block if there is StoredBlockEntityTag(used in /nsse swap)
+    // Swapping the block entity of a newly placed block if there is StoredBlockEntityTag(for /nsse swap to work)
     @Inject(method = "place(Lnet/minecraft/item/ItemPlacementContext;)Lnet/minecraft/util/ActionResult;", at = @At("RETURN"))
     private void notsoshadowextras$swapBlockEntity(ItemPlacementContext context, CallbackInfoReturnable<ActionResult> cir) {
         ItemStack stack = context.getStack();
@@ -31,7 +32,7 @@ public class BlockItemMixin {
 
         Optional<BlockEntity> blockEntity = Registries.BLOCK_ENTITY_TYPE.getOptionalValue(identifier).map(type -> {
             try {
-                return type.instantiate(context.getBlockPos(), context.getWorld().getBlockState(pos));
+                return !type.blocks.isEmpty() ? type.instantiate(context.getBlockPos(), type.blocks.iterator().next().getDefaultState()) : null;
             } catch (Throwable throwable) {
                 return null;
             }
