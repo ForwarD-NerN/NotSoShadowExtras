@@ -24,7 +24,10 @@ public class BlockItemMixin {
         ItemStack stack = context.getStack();
         if(context.getWorld().isClient || !stack.getComponents().contains(DataComponentTypes.CUSTOM_DATA)) return;
 
-        Identifier identifier = Identifier.tryParse(stack.getComponents().get(DataComponentTypes.CUSTOM_DATA).copyNbt().getString("StoredBlockEntity"));
+        Optional<String> storedBlockEntity = stack.getComponents().get(DataComponentTypes.CUSTOM_DATA).copyNbt().getString("StoredBlockEntity");
+
+        if(storedBlockEntity.isEmpty()) return;
+        Identifier identifier = Identifier.tryParse(storedBlockEntity.get());
         if(identifier == null) return;
 
         BlockPos pos = context.getBlockPos();

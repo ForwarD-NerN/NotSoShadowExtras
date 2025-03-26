@@ -29,8 +29,8 @@ import net.minecraft.util.math.BlockPos;
 import java.util.Collections;
 import java.util.Optional;
 
-import static net.minecraft.server.command.CommandManager.literal;
 import static net.minecraft.server.command.CommandManager.argument;
+import static net.minecraft.server.command.CommandManager.literal;
 
 public class NSSECommands {
     private static final SimpleCommandExceptionType IS_NOT_A_BLOCK = new SimpleCommandExceptionType(new LiteralMessage("Selected item is not a block"));

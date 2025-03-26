@@ -19,9 +19,6 @@
   "entrypoints": {
     "main": [
       "ru.nern.notsoshadowextras.NSSE"
-    ],
-    "fabric-gametest": [
-      "ru.nern.notsoshadowextras.test.NSSETests"
     ]
   },
   "mixins": [
@@ -30,11 +27,11 @@
 
   "depends": {
     "fabricloader": ">=0.16.0",
-    "minecraft": "1.21.4",
-    "java": ">=17"
+    "minecraft": "1.21.5",
+    "java": ">=21"
   },
   "recommends": {
-    "antishadowpatch": ">=2.0.0"
+    "antishadowpatch": ">=2.1.0"
   },
   "accessWidener": "notsoshadowextras.accesswidener"
 }

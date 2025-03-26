@@ -7,7 +7,6 @@ import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
-import ru.nern.notsoshadowextras.NSSE;
 
 //We're decrementing a real stack before addToComposter and passing a copy next
 @Mixin(ComposterBlock.class)
