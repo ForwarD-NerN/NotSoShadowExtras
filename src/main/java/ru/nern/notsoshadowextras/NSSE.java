@@ -88,6 +88,12 @@ public class NSSE implements ModInitializer {
 		public static class Items {
 			@InRangeInt(min = 1)
 			public int MaxCountPerStack = 99; // 1095216660 is the maximum. Past that, the game underflows the value
+
+			@MixinOption(value = {
+					"items.shadowing.*",
+					"items.shadowing.loaders.*"
+			})
+			public boolean PersistentShadowItems = true;
 		}
 
 		public static class Misc {
