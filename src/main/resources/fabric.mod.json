@@ -19,9 +19,6 @@
   "entrypoints": {
     "main": [
       "ru.nern.notsoshadowextras.NSSE"
-    ],
-    "fabric-gametest": [
-      "ru.nern.notsoshadowextras.test.NSSETests"
     ]
   },
   "mixins": [
