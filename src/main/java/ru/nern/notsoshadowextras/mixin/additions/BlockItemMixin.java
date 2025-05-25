@@ -1,6 +1,5 @@
 package ru.nern.notsoshadowextras.mixin.additions;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.item.BlockItem;
