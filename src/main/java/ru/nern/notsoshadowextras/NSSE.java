@@ -45,7 +45,7 @@ public class NSSE implements ModInitializer {
 		public Misc Misc = new Misc();
 
 		public static class UpdateSuppression {
-			@MixinOption("update_suppression.MinecraftServerMixin_CrashFix")
+			@MixinOption("update_suppression.crash_fix.*")
 			public boolean CrashFix = true;
 
 			@MixinOption("update_suppression.dupe_fix.*")
