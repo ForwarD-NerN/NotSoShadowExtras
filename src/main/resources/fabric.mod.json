@@ -31,7 +31,8 @@
     "java": ">=17"
   },
   "recommends": {
-    "antishadowpatch": ">=2.0.0"
+    "antishadowpatch": ">=2.0.0",
+    "fabric-api": "*"
   },
   "accessWidener": "notsoshadowextras.accesswidener"
 }
