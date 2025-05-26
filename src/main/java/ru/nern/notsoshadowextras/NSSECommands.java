@@ -61,7 +61,7 @@ public class NSSECommands {
                     Text.literal("Block entity does not exist at this position"), false);
         }else{
             source.sendFeedback(() ->
-                    Text.literal(String.format("Block entity does exist. Type: %s", blockEntity.getType().getRegistryEntry().getIdAsString())), false);
+                    Text.literal(String.format("Block entity does exist. Type: %s", Registries.BLOCK_ENTITY_TYPE.getId(blockEntity.getType()))), false);
         }
 
         return 1;
@@ -90,7 +90,7 @@ public class NSSECommands {
         });
         if(blockEntity.isEmpty()) throw UNKNOWN_TYPE.create();
         if(current != null) world.removeBlockEntity(pos);
-        System.out.println("ADDING BLLOCK ENTITY: " + blockEntity.get());
+        System.out.println("ADDING BLOCK ENTITY: " + blockEntity.get());
         world.addBlockEntity(blockEntity.get());
     }
 
