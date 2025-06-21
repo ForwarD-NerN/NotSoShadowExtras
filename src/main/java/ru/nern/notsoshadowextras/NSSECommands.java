@@ -82,15 +82,13 @@ public class NSSECommands {
 
         Optional<BlockEntity> blockEntity = Registries.BLOCK_ENTITY_TYPE.getOptionalValue(id).map(type -> {
             try {
-                return !type.blocks.isEmpty() ? type.instantiate(pos, type.blocks.iterator().next().getDefaultState()) : null;
+                return type.instantiate(pos, world.getBlockState(pos));
             } catch (Throwable throwable) {
-                NSSE.LOGGER.error("Error occurred during instantiation of a block entity: ", throwable);
                 return null;
             }
         });
         if(blockEntity.isEmpty()) throw UNKNOWN_TYPE.create();
         if(current != null) world.removeBlockEntity(pos);
-        System.out.println("ADDING BLLOCK ENTITY: " + blockEntity.get());
         world.addBlockEntity(blockEntity.get());
     }
 
