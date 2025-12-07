@@ -22,7 +22,7 @@ public class BlockItemMixin {
     @Inject(method = "place(Lnet/minecraft/item/ItemPlacementContext;)Lnet/minecraft/util/ActionResult;", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;playSound(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/sound/SoundEvent;Lnet/minecraft/sound/SoundCategory;FF)V"))
     private void notsoshadowextras$swapBlockEntity(ItemPlacementContext context, CallbackInfoReturnable<ActionResult> cir) {
         ItemStack stack = context.getStack();
-        if(context.getWorld().isClient || !stack.getComponents().contains(DataComponentTypes.CUSTOM_DATA)) return;
+        if(context.getWorld().isClient() || !stack.getComponents().contains(DataComponentTypes.CUSTOM_DATA)) return;
 
         Optional<String> storedBlockEntity = stack.getComponents().get(DataComponentTypes.CUSTOM_DATA).copyNbt().getString("StoredBlockEntity");
 

@@ -18,7 +18,7 @@ public class ShearsItemMixin {
             target = "Lnet/minecraft/world/World;setBlockState(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;)Z", ordinal = 0))
     private void notsoshadowextras$damageShears(ItemUsageContext context, CallbackInfoReturnable<ActionResult> cir) {
         if(context.getPlayer() != null)
-            context.getStack().damage(1, context.getPlayer(), LivingEntity.getSlotForHand(context.getHand()));
+            context.getStack().damage(1, context.getPlayer(), context.getHand().getEquipmentSlot());
     }
 
     @WrapWithCondition(

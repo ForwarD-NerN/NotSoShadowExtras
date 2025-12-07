@@ -22,7 +22,7 @@ public class FlintAndSteelItemMixin {
             target = "Lnet/minecraft/world/World;playSound(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/sound/SoundEvent;Lnet/minecraft/sound/SoundCategory;FF)V", ordinal = 0))
     private void notsoshadowextras$damageFlintAndSteelCampfire(ItemUsageContext context, CallbackInfoReturnable<ActionResult> cir) {
         if(context.getPlayer() != null)
-            context.getStack().damage(1, context.getPlayer(), LivingEntity.getSlotForHand(context.getHand()));
+            context.getStack().damage(1, context.getPlayer(), context.getHand().getEquipmentSlot());
     }
 
     @WrapWithCondition(
@@ -40,7 +40,7 @@ public class FlintAndSteelItemMixin {
             PlayerEntity playerEntity = context.getPlayer();
             ItemStack itemStack = context.getStack();
             Criteria.PLACED_BLOCK.trigger((ServerPlayerEntity)playerEntity, context.getBlockPos(), itemStack);
-            itemStack.damage(1, playerEntity, LivingEntity.getSlotForHand(context.getHand()));
+            itemStack.damage(1, playerEntity, context.getHand().getEquipmentSlot());
         }
     }
 

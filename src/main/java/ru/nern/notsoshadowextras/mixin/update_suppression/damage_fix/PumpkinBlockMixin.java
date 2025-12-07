@@ -22,7 +22,7 @@ public class PumpkinBlockMixin {
     @Inject(method = "onUseWithItem", at = @At(value = "INVOKE",
             target = "Lnet/minecraft/world/World;setBlockState(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;I)Z", ordinal = 0))
     private void notsoshadowextras$damageShears(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit, CallbackInfoReturnable<ActionResult> cir) {
-        player.getStackInHand(hand).damage(1, player, LivingEntity.getSlotForHand(hand));
+        player.getStackInHand(hand).damage(1, player, hand.getEquipmentSlot());
     }
 
     @WrapWithCondition(

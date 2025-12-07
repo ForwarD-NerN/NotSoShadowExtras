@@ -23,6 +23,6 @@ public class ArmorStandItemMixin {
             at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;decrement(I)V")
     )
     private boolean notsoshadowextras$wrapDecrementWithCondition(ItemStack instance, int amount, @Local(argsOnly = true) ItemUsageContext context) {
-        return context.getWorld().isClient;
+        return context.getWorld().isClient();
     }
 }
