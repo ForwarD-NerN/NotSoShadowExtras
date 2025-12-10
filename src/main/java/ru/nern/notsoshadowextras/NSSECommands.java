@@ -18,6 +18,7 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.Registries;
+import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -41,7 +42,7 @@ public class NSSECommands {
     protected static void init() {
         if (FabricLoader.getInstance().isModLoaded("fabric-command-api-v2") && NSSE.config().Additions.BlockEntitySwapCommand) {
             CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> dispatcher.register(literal("nsse")
-                    .requires(source -> source.hasPermissionLevel(3))
+                    .requires(CommandManager.requirePermissionLevel(CommandManager.GAMEMASTERS_CHECK))
                     .then(literal("exists")
                             .then(argument("pos", BlockPosArgumentType.blockPos())
                                     .executes(ctx -> blockEntityExists(ctx.getSource(), BlockPosArgumentType.getLoadedBlockPos(ctx, "pos")))))
