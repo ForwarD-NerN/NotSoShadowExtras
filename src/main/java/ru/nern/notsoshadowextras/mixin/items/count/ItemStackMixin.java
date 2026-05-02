@@ -8,7 +8,7 @@ import ru.nern.notsoshadowextras.NSSE;
 
 @Mixin(ItemStack.class)
 public class ItemStackMixin {
-    @ModifyConstant(method = "method_57371", constant = @Constant(intValue = 99))
+    @ModifyConstant(method = "lambda$static$1", constant = @Constant(intValue = 99))
     private static int notsoshadowextras$maxCountPerStack(int value) {
         return NSSE.config().Items.MaxCountPerStack;
     }
