@@ -1,0 +1,3 @@
+classTweaker v1 official
+accessible field net/minecraft/world/chunk/Chunk blockEntities Ljava/util/Map;
+accessible field net/minecraft/block/entity/BlockEntityType blocks Ljava/util/Set;
