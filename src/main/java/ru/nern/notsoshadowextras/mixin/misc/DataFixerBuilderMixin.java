@@ -2,7 +2,7 @@ package ru.nern.notsoshadowextras.mixin.misc;
 
 import com.mojang.datafixers.DataFix;
 import com.mojang.datafixers.DataFixerBuilder;
-import net.minecraft.datafixer.fix.ChunkDeleteLightFix;
+import net.minecraft.util.datafix.fixes.ChunkDeleteLightFix;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;

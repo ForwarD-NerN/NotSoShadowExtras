@@ -1,10 +1,10 @@
 package ru.nern.notsoshadowextras;
 
-import net.minecraft.network.packet.s2c.play.GameMessageS2CPacket;
+import net.minecraft.network.protocol.game.ClientboundSystemChatPacket;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.network.chat.Component;
+import net.minecraft.ChatFormatting;
 import org.spongepowered.asm.mixin.Unique;
 import ru.nern.notsoshadowextras.crash_fix.UpdateSuppressionReason;
 
@@ -24,13 +24,13 @@ public class NSSEUtils {
     }
 
     @Unique
-    public static void alertDimensionAboutCrash(ServerWorld world, UpdateSuppressionReason reason) {
-        world.getServer().getPlayerManager().sendToDimension(
-                new GameMessageS2CPacket(Text.literal(String.format("%s Suppression crash just occurred.", reason.getName())).formatted(Formatting.GRAY), false), world.getRegistryKey());
+    public static void alertDimensionAboutCrash(ServerLevel world, UpdateSuppressionReason reason) {
+        world.getServer().getPlayerList().broadcastAll(
+                new ClientboundSystemChatPacket(Component.literal(String.format("%s Suppression crash just occurred.", reason.getName())).withStyle(ChatFormatting.GRAY), false), world.dimension());
     }
 
     @Unique
     public static void alertEveryoneAboutCrash(MinecraftServer server, UpdateSuppressionReason reason) {
-        server.getPlayerManager().sendToAll(new GameMessageS2CPacket(Text.literal(String.format("%s Suppression crash just occurred.", reason.getName())).formatted(Formatting.GRAY), false));
+        server.getPlayerList().broadcastAll(new ClientboundSystemChatPacket(Component.literal(String.format("%s Suppression crash just occurred.", reason.getName())).withStyle(ChatFormatting.GRAY), false));
     }
 }

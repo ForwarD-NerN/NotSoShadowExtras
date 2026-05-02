@@ -5,11 +5,11 @@
   "compatibilityLevel": "JAVA_17",
   "mixins": [
     "additions.BlockItemMixin",
-    "blocks.BulbBlockMixin",
+    "blocks.CopperBulbBlockMixin",
     "blocks.CrafterBlockMixin",
-    "items.count.DataComponentTypesMixin",
-    "items.count.InventoryMixin",
-    "items.count.ItemCommandMixin",
+    "items.count.DataComponentsMixin",
+    "items.count.ContainerMixin",
+    "items.count.ItemCommandsMixin",
     "items.count.ItemStackMixin",
     "misc.DataFixerBuilderMixin",
     "sound_suppression.CakeBlockMixin",
@@ -32,7 +32,7 @@
     "update_suppression.dupe_fix.BlockItemMixin",
     "update_suppression.dupe_fix.ComposterBlockMixin",
     "update_suppression.dupe_fix.FlowerPotBlockMixin",
-    "update_suppression.dupe_fix.ItemFrameEntityMixin"
+    "update_suppression.dupe_fix.ItemFrameMixin"
   ],
   "plugin": "ru.nern.notsoshadowextras.mixin.NSSEMixinPlugin",
   "injectors": {

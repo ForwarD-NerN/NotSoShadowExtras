@@ -3,8 +3,8 @@ package ru.nern.notsoshadowextras.mixin.update_suppression.crash_fix;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.crash.CrashException;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.ReportedException;
 import org.slf4j.Logger;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -21,13 +21,13 @@ public class MinecraftServerMixin_CrashFix {
     @Shadow @Final private static Logger LOGGER;
 
     @WrapOperation(
-            method = "tickWorlds",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/server/world/ServerWorld;tick(Ljava/util/function/BooleanSupplier;)V")
+            method = "tickChildren",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/server/level/ServerLevel;tick(Ljava/util/function/BooleanSupplier;)V")
     )
-    private void notsoshadowextras$updateSuppressionCrashFix(ServerWorld world, BooleanSupplier shouldKeepTicking, Operation<Void> original) {
+    private void notsoshadowextras$updateSuppressionCrashFix(ServerLevel world, BooleanSupplier shouldKeepTicking, Operation<Void> original) {
         try {
             original.call(world, shouldKeepTicking);
-        }catch (StackOverflowError | ClassCastException | IllegalArgumentException | CrashException error) {
+        }catch (StackOverflowError | ClassCastException | IllegalArgumentException | ReportedException error) {
             if(!NSSE.config().Update_Suppression.HideStackTrace) LOGGER.error("Exception occurred during world ticking", error);
             if(NSSE.config().Update_Suppression.AlertAboutCrash) NSSEUtils.alertDimensionAboutCrash(world, NSSEUtils.getReason(error.getCause()));
         }

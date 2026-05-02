@@ -1,14 +1,14 @@
 package ru.nern.notsoshadowextras.mixin.additions;
 
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.registry.Registries;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.resources.Identifier;
+import net.minecraft.core.BlockPos;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -19,29 +19,29 @@ import java.util.Optional;
 @Mixin(BlockItem.class)
 public class BlockItemMixin {
     // Swapping the block entity of a newly placed block if there is StoredBlockEntityTag(for /nsse swap to work)
-    @Inject(method = "place(Lnet/minecraft/item/ItemPlacementContext;)Lnet/minecraft/util/ActionResult;", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;playSound(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/sound/SoundEvent;Lnet/minecraft/sound/SoundCategory;FF)V"))
-    private void notsoshadowextras$swapBlockEntity(ItemPlacementContext context, CallbackInfoReturnable<ActionResult> cir) {
-        ItemStack stack = context.getStack();
-        if(context.getWorld().isClient() || !stack.getComponents().contains(DataComponentTypes.CUSTOM_DATA)) return;
+    @Inject(method = "place(Lnet/minecraft/world/item/context/BlockPlaceContext;)Lnet/minecraft/world/InteractionResult;", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;playSound(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/core/BlockPos;Lnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundSource;FF)V"))
+    private void notsoshadowextras$swapBlockEntity(BlockPlaceContext context, CallbackInfoReturnable<InteractionResult> cir) {
+        ItemStack stack = context.getItemInHand();
+        if(context.getLevel().isClientSide() || !stack.getComponents().has(DataComponents.CUSTOM_DATA)) return;
 
-        Optional<String> storedBlockEntity = stack.getComponents().get(DataComponentTypes.CUSTOM_DATA).copyNbt().getString("StoredBlockEntity");
+        Optional<String> storedBlockEntity = stack.getComponents().get(DataComponents.CUSTOM_DATA).copyTag().getString("StoredBlockEntity");
 
         if(storedBlockEntity.isEmpty()) return;
         Identifier identifier = Identifier.tryParse(storedBlockEntity.get());
         if(identifier == null) return;
 
-        BlockPos pos = context.getBlockPos();
+        BlockPos pos = context.getClickedPos();
 
-        Optional<BlockEntity> blockEntity = Registries.BLOCK_ENTITY_TYPE.getOptionalValue(identifier).map(type -> {
+        Optional<BlockEntity> blockEntity = BuiltInRegistries.BLOCK_ENTITY_TYPE.getOptional(identifier).map(type -> {
             try {
-                return !type.blocks.isEmpty() ? type.instantiate(context.getBlockPos(), type.blocks.iterator().next().getDefaultState()) : null;
+                return !type.validBlocks.isEmpty() ? type.create(context.getClickedPos(), type.validBlocks.iterator().next().defaultBlockState()) : null;
             } catch (Throwable throwable) {
                 return null;
             }
         });
         if(blockEntity.isPresent()) {
-            context.getWorld().removeBlockEntity(pos);
-            context.getWorld().addBlockEntity(blockEntity.get());
+            context.getLevel().removeBlockEntity(pos);
+            context.getLevel().setBlockEntity(blockEntity.get());
         }
     }
 }
