@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(BoatItem.class)
 public class BoatItemMixin {
-    @Inject(method = "use", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;spawnEntity(Lnet/minecraft/world/entity/Entity;)Z"))
+    @Inject(method = "use", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z"))
     private void notsoshadowextras$decrement(Level world, Player user, InteractionHand hand, CallbackInfoReturnable<InteractionResult.Success> cir, @Local HitResult result) {
         user.getItemInHand(hand).consume(1, user);
     }

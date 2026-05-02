@@ -34,7 +34,7 @@ public class FlintAndSteelItemMixin {
     }
 
     @Inject(method = "useOn", at = @At(value = "INVOKE",
-            target = "Lnet/minecraft/world/level/Level;setBlockState(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;I)Z", ordinal = 1))
+            target = "Lnet/minecraft/world/level/Level;setBlock(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;I)Z", ordinal = 1))
     private void notsoshadowextras$damageFlintAndSteel(UseOnContext context, CallbackInfoReturnable<InteractionResult> cir) {
         if(context.getPlayer() instanceof ServerPlayer) {
             Player playerEntity = context.getPlayer();
@@ -45,7 +45,7 @@ public class FlintAndSteelItemMixin {
     }
 
     @Inject(method = "useOn", at = @At(value = "INVOKE",
-            target = "Lnet/minecraft/world/level/Level;emitGameEvent(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/core/Holder;Lnet/minecraft/core/BlockPos;)V", ordinal = 1, shift = At.Shift.AFTER), cancellable = true)
+            target = "Lnet/minecraft/world/level/Level;gameEvent(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/core/Holder;Lnet/minecraft/core/BlockPos;)V", ordinal = 1, shift = At.Shift.AFTER), cancellable = true)
     private void notsoshadowextras$cancelFlintAndSteelDamage(UseOnContext context, CallbackInfoReturnable<InteractionResult> cir) {
         cir.setReturnValue(InteractionResult.SUCCESS);
     }

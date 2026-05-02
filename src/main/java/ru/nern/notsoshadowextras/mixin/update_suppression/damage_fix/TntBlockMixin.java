@@ -27,7 +27,7 @@ public class TntBlockMixin {
 
     @WrapWithCondition(
             method = "useItemOn",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;setBlockState(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;I)Z")
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;setBlock(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;I)Z")
     )
     private boolean notsoshadowextras$wrapSetBlockStateWithCondition(Level world, BlockPos pos, BlockState state, int flags) {
         return false;

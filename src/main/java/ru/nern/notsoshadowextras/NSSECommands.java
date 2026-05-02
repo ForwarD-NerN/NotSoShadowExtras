@@ -91,7 +91,6 @@ public class NSSECommands {
         });
         if(blockEntity.isEmpty()) throw UNKNOWN_TYPE.create();
         if(current != null) world.removeBlockEntity(pos);
-        System.out.println("ADDING BLOCK ENTITY: " + blockEntity.get());
         world.setBlockEntity(blockEntity.get());
     }
 
