@@ -26,5 +26,9 @@ Addon to [AntiShadowPatch](https://modrinth.com/mod/antishadowpatch) that adds e
 * /nsse swap <blockEntity> - modifies a block in the player's hand to include a block entity. Similar to block entity swap, but you can carry it around.
 * /nsse swap <blockEntity> <pos> - sets a block entity of the specific type at the specified position.
 * /nsse exists <pos> - returns the block entity info at a specified pos if it exists.
+* /nsse eid list <limit> - returns first <limit> entity names along with their ids
+* /nsse eid get - returns the current value of the EID counter
+* /nsse eid set <id> - sets the EID counter
+* /nsse eid collide - sets the EID counter to the <existing entity id>-1
 
 You can configure every setting individually in notsoshadowextras_config.json

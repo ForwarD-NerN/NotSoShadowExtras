@@ -1,11 +1,15 @@
 package ru.nern.notsoshadowextras;
 
+import com.google.common.collect.Maps;
 import com.mojang.brigadier.LiteralMessage;
+import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.exceptions.SimpleCommandExceptionType;
 import com.mojang.brigadier.suggestion.SuggestionProvider;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.commands.SharedSuggestionProvider;
@@ -27,8 +31,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.resources.Identifier;
 import net.minecraft.core.BlockPos;
 
-import java.util.Collections;
-import java.util.Optional;
+import java.util.*;
 
 import static net.minecraft.commands.Commands.argument;
 import static net.minecraft.commands.Commands.literal;
@@ -50,8 +53,74 @@ public class NSSECommands {
                             .then(argument("blockEntity", IdentifierArgument.id()).suggests(BLOCK_ENTITIES)
                                     .executes(ctx -> swap(ctx.getSource(), IdentifierArgument.getId(ctx, "blockEntity")))
                                     .then(argument("pos", BlockPosArgument.blockPos())
-                                            .executes(ctx -> swapAtPos(ctx.getSource(), IdentifierArgument.getId(ctx, "blockEntity"), BlockPosArgument.getLoadedBlockPos(ctx, "pos"))))))));
+                                            .executes(ctx -> swapAtPos(ctx.getSource(), IdentifierArgument.getId(ctx, "blockEntity"), BlockPosArgument.getLoadedBlockPos(ctx, "pos"))))))
+                    .then(literal("eid")
+                            .then(literal("list")
+                                    .executes(ctx -> listEntityIds(ctx.getSource(), 50))
+                                    .then(argument("limit", IntegerArgumentType.integer())
+                                            .executes(ctx -> listEntityIds(ctx.getSource(), IntegerArgumentType.getInteger(ctx, "limit")))))
+                            .then(literal("collide")
+                                    .executes(ctx -> collideEntityId(ctx.getSource())))
+                            .then(literal("get")
+                                    .executes(ctx -> getGlobalEntityId(ctx.getSource())))
+                            .then(literal("set")
+                                    .then(argument("new_id", IntegerArgumentType.integer())
+                                            .executes(ctx -> setGlobalEntityId(ctx.getSource(), IntegerArgumentType.getInteger(ctx, "new_id"))))))));
         }
+    }
+
+    public static int listEntityIds(CommandSourceStack source, int limit) {
+        Map<Integer, Component> entityInfoMap = Maps.newTreeMap();
+
+        int curIndex = 0;
+
+        Iterator<Entity> iterator = source.getLevel().getEntities().getAll().iterator();
+
+        while (iterator.hasNext() && curIndex < limit) {
+            var entity = iterator.next();
+
+            entityInfoMap.put(entity.getId(), Component.literal("\n"+entity.getId()+". ").append(entity.getType().getDescription()).append(" ").append(entity.getCustomName() == null ? Component.empty() : entity.getCustomName()));
+            curIndex += 1;
+        }
+
+        MutableComponent info = Component.literal("First " + limit + " entities by ids:");
+
+        for (Map.Entry<Integer, Component> entry : entityInfoMap.entrySet()) {
+           info.append(entry.getValue());
+        }
+
+        source.sendSuccess(() ->
+                info, false);
+        return 1;
+    }
+
+    public static int getGlobalEntityId(CommandSourceStack source) {
+        source.sendSuccess(() ->
+                Component.literal(String.format("EID counter: %d", ServerLevel.ENTITY_COUNTER.get())), false);
+        return 1;
+    }
+
+    public static int setGlobalEntityId(CommandSourceStack source, int newId) {
+        ServerLevel.ENTITY_COUNTER.set(newId);
+        source.sendSuccess(() ->
+                Component.literal(String.format("The global entity id counter is set to %d", newId)), false);
+        return 1;
+    }
+
+    public static int collideEntityId(CommandSourceStack source) {
+
+        int existingEntityId;
+
+        if(source.getEntity() != null) {
+            existingEntityId = source.getEntity().getId();
+        }else {
+            existingEntityId = source.getLevel().getEntities().getAll().iterator().next().getId(); // there is probably a better way to do this
+        }
+
+        setGlobalEntityId(source, existingEntityId-1);
+        source.sendSuccess(() ->
+                Component.literal("The next entity id incrementation will result in collision (if EID suppression is enabled in AntiShadowPatch)"), false);
+        return 1;
     }
 
     public static int blockEntityExists(CommandSourceStack source, BlockPos pos) {
@@ -59,10 +128,10 @@ public class NSSECommands {
 
         if(blockEntity == null) {
             source.sendSuccess(() ->
-                    Component.literal("Block entity does not exist at this position"), false);
+                    Component.literal("Block Entity does not exist at this position"), false);
         }else{
             source.sendSuccess(() ->
-                    Component.literal(String.format("Block entity does exist. Type: %s", BuiltInRegistries.BLOCK_ENTITY_TYPE.getKey(blockEntity.getType()))), false);
+                    Component.literal(String.format("Block Entity does exist. Type: %s", BuiltInRegistries.BLOCK_ENTITY_TYPE.getKey(blockEntity.getType()))), false);
         }
 
         return 1;

@@ -9,7 +9,7 @@ import static ru.nern.fconfiglib.v1.json.JsonConfigUtils.move;
 
 public class ConfigFixes {
 
-    public static ConfigFixer<NSSE.Config, JsonObject> V2_FIXER = (config, raw) -> {
+    public static final ConfigFixer<NSSE.Config, JsonObject> V2_FIXER = (config, raw) -> {
         NSSE.LOGGER.info("Converting to config V2...");
         createPath(raw, "Update_Suppression");
         createPath(raw, "Blocks");
